@@ -4,6 +4,10 @@ require("dotenv").config()
 require("hardhat-deploy")
 require("@nomicfoundation/hardhat-chai-matchers")
 
+const { ProxyAgent, setGlobalDispatcher } = require("undici")
+const proxyAgent = new ProxyAgent("http://127.0.0.1:7890")
+setGlobalDispatcher(proxyAgent)
+
 // require("hardhat-gas-reporter")
 // require("solidity-coverage")
 // require("hardhat-storage-layout")
@@ -42,7 +46,6 @@ module.exports = {
             chainId: 5167003,
             accounts: [PRIVATE_KEY],
             gasPrice: 5000000,
-            timeout: 50000,
         },
         taiku: {
             url: "https://rpc.a2.taiko.xyz",
