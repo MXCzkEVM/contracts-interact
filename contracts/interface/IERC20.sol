@@ -13,6 +13,8 @@ abstract contract IERC20 {
 
     function balanceOf(address account) external view virtual returns (uint256);
 
+    function faucetReceive(address recipient) external virtual returns (bool);
+
     function transfer(
         address to,
         uint256 amount

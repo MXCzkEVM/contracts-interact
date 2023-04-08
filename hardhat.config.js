@@ -12,7 +12,6 @@ require("@nomicfoundation/hardhat-chai-matchers")
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
-const TAIKO_RPC_URL = process.env.TAIKO_RPC_URL
 
 module.exports = {
     solidity: {
@@ -38,8 +37,15 @@ module.exports = {
         hardhat: {
             chainId: 31337,
         },
+        wannsee: {
+            url: "https://wannsee-rpc.mxc.com",
+            chainId: 5167003,
+            accounts: [PRIVATE_KEY],
+            gasPrice: 5000000,
+            timeout: 50000,
+        },
         taiku: {
-            url: TAIKO_RPC_URL,
+            url: "https://rpc.a2.taiko.xyz",
             chainId: 167004,
             accounts: [PRIVATE_KEY],
             gasPrice: 250000000000,

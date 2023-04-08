@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./interface/IERC20.sol";
 
 error Faucet_NotOwner();
 error Faucet_ReqMultiTimes();
@@ -46,31 +46,31 @@ contract Faucet {
     }
 
     // one address can't receive once
-    function requestMoon(address reqAddr) external {
+    function requestMoon(address recipient) external {
         IERC20 token = IERC20(moonToken);
-        if (requestedMoon[reqAddr]) {
+        if (requestedMoon[recipient]) {
             revert Faucet_ReqMultiTimes();
         }
         if (token.balanceOf(address(this)) < moonAllowed) {
             revert Faucet_MoonEmpty();
         }
 
-        token.transfer(reqAddr, moonAllowed);
-        requestedMoon[reqAddr] = true;
-        emit SendMoon(reqAddr);
+        token.faucetReceive(recipient);
+        requestedMoon[recipient] = true;
+        emit SendMoon(recipient);
     }
 
-    function requestMXC(address reqAddr) external {
-        if (block.timestamp <= lockTime[reqAddr]) {
+    function requestMXC(address recipient) external {
+        if (block.timestamp <= lockTime[recipient]) {
             revert Faucet_LockTimeNotExpired();
         }
         if (address(this).balance < mxcAllowed) {
             revert Faucet_MXCEmpty();
         }
 
-        payable(reqAddr).transfer(mxcAllowed);
-        lockTime[reqAddr] = block.timestamp + 1 days;
-        emit SendMxc(reqAddr);
+        payable(recipient).transfer(mxcAllowed);
+        lockTime[recipient] = block.timestamp + 1 days;
+        emit SendMxc(recipient);
     }
 
     receive() external payable {}

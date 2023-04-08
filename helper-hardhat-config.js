@@ -11,6 +11,9 @@ const networkConfig = {
     5: {
         name: "goerli",
     },
+    5167003: {
+        name: "wannsee",
+    },
     167004: {
         name: "taiko",
         Bull: "0x6048e5ca54c021D39Cd33b63A44980132bcFA66d",
