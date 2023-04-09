@@ -1,8 +1,12 @@
-hh run scripts/testnet.js --network wannsee
-hh run scripts/testnet.js --network taiku
-hh run scripts/testnet.js --network sepolia
-hh deploy --network taiku
-hh deploy --network wannsee
+hh run scripts/contracts.js --network wannsee
+hh run scripts/contracts.js --network taiku
+
+--network wannsee
+--network taiku
+--network sepolia
+
+hh run scripts/testnet.js
+hh run scripts/contracts.js
 
 test
 hh test test/unit/Faucet.test.js
@@ -12,7 +16,10 @@ await network.provider.send("eth_blockNumber", [])
 
 deploy
 hh deploy --tags faucet --network wannsee
+hh deploy --tags faucet --network taiku
 hh deploy --tags simple_storage --network wannsee
+hh deploy --network taiku
+hh deploy --network wannsee
 
 [taiku]
 simpleStorage
@@ -23,3 +30,7 @@ MoonToken
 [wannsee]
 simpleStorage
 0x77E5a8bE0bb40212458A18dEC1A9752B04Cb6EA1
+Moon Token
+0xe031013A7B7Caf05FC20Bdc49B731E3F2f0cAfFd
+faucet
+0x20533B476eFa880Ff135284ab7964Ed8F3C71119 - forget set owner

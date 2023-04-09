@@ -31,6 +31,7 @@ contract Faucet {
 
     constructor(address _moonToken) {
         moonToken = _moonToken;
+        owner = msg.sender;
     }
 
     function setOwner(address _newOwner) public onlyOwner {

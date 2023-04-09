@@ -8,17 +8,17 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deployer } = await getNamedAccounts()
 
     // const chainId = network.config.chainId
-    await deploy("MoonERC20", {
-        from: deployer,
-        args: ["Moon", "Moon Token"],
-        log: true,
-    })
+    // await deploy("MoonERC20", {
+    //     from: deployer,
+    //     args: ["Moon", "Moon Token"],
+    //     log: true,
+    // })
+    // const MoonERC = await deployments.get("MoonERC20")
+    // console.log(`moon token address: ${MoonERC.address}`)
 
-    const MoonERC = await deployments.get("MoonERC20")
-    console.log(`moon token address: ${MoonERC.address}`)
     await deploy("Faucet", {
         from: deployer,
-        args: [MoonERC.address],
+        args: ["0x6c3c72297C448A4BAa6Fc45552657Ad68378E3E1"],
         log: true,
     })
 }
