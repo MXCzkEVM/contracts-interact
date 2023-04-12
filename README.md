@@ -1,5 +1,6 @@
-hh run scripts/contracts.js --network wannsee
-hh run scripts/contracts.js --network taiku
+hh run scripts/layer2.js --network wannsee
+hh run scripts/layer2.js --network taiku
+hh run scripts/layer1.js --network arbiture_goerli
 
 --network wannsee
 --network taiku

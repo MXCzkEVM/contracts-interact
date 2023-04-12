@@ -18,7 +18,6 @@ contract MoonERC20 is IERC20 {
     string public symbol;
     uint256 public override totalSupply;
     uint8 public decimals = 18;
-    address public faucet;
 
     mapping(address => bool) public owners;
     mapping(address => uint256) public tokenStatus;

@@ -31,8 +31,8 @@ const faucetMain = async () => {
     let Faucet = await contractFactory("Faucet", config.c_faucet)
 
     // ======== user ========
-    const Balance = await getBalance(user2.address)
-    console.log(`balance of ${user2.address} : ${Balance}`)
+    // const Balance = await getBalance(user2.address)
+    // console.log(`balance of ${user2.address} : ${Balance}`)
     // ======== user ========
 
     // ======== moonToken ========
@@ -88,6 +88,7 @@ const faucetMain = async () => {
 }
 
 const simpleStorageMain = async () => {
+    const [deployer, user1, user2] = await ethers.getSigners()
     let simpleStorage = await contractFactory(
         "SimpleStorage",
         config.c_simpleStorage
@@ -95,11 +96,13 @@ const simpleStorageMain = async () => {
     const currentValue = await simpleStorage.retrieve()
     console.log(`Current Value is: ${currentValue}`)
 
-    // const transactionResponse = await simpleStorage.store(7)
-    // await transactionResponse.wait(1)
+    const transactionResponse = await simpleStorage
+        .connect(deployer)
+        .store(100, { gasLimit: 3000000 })
+    await transactionResponse.wait(1)
 
-    // const updatedValue = await simpleStorage.retrieve()
-    // console.log(`Updated Value is: ${updatedValue}`)
+    const updatedValue = await simpleStorage.retrieve()
+    console.log(`Updated Value is: ${updatedValue}`)
 }
 
 main().catch((error) => {

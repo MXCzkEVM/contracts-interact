@@ -45,11 +45,16 @@ module.exports = {
         hardhat: {
             chainId: 31337,
         },
+        arbiture_goerli: {
+            url: "https://goerli-rollup.arbitrum.io/rpc",
+            chainId: 421613,
+            accounts: [PRIVATE_KEY1],
+        },
         wannsee: {
             url: "https://wannsee-rpc.mxc.com",
             chainId: 5167003,
             accounts: [PRIVATE_KEY1],
-            gasPrice: 250000000000,
+            gasPrice: 6000000000000,
         },
         taiku: {
             url: "https://rpc.a2.taiko.xyz",
