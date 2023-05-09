@@ -12,7 +12,9 @@ const mxcL1ABI = require("../abi/MXCL1.json")
 const mxcTokenABI = require("../abi/MXCToken.json")
 
 async function main() {
-    stake()
+    // stake()
+    let res = await getBalance("0x6aa0DAF6C3d66651a50e7918E6e1fa9E024da1a7")
+    console.log(formatEther(res))
 }
 
 const stake = async () => {
@@ -25,12 +27,15 @@ const stake = async () => {
         deployer
     )
     // await mxcToken.approve(mxcL1.address, parseEther("5000"))
-    // await mxcL1.stake(parseEther("5000"))
-    // const stakeVal = await mxcL1.getStakeAmount()
-    // console.log(formatEther(stakeVal))
+    // 检查授权额度
+    // let res = await mxcToken.allowance(deployer.address, mxcL1.address)
+    // console.log(formatEther(res))
 
-    await mxcToken["mint(address)"](deployer.address)
-    // console.log()
+    // await mxcL1.stake(parseEther("5000"))
+    const stakeVal = await mxcL1.getStakeAmount()
+    console.log(formatEther(stakeVal))
+
+    // await mxcToken["mint(address)"](deployer.address)
     // await mxcToken.callStatic.mint(deployer.address, parseEther("10000"))
 }
 

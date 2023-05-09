@@ -4,6 +4,8 @@ pragma solidity 0.8.17;
 contract SimpleStorage {
     uint256 favoriteNumber;
 
+    event storeNumber(address indexed setter, uint256 number);
+
     mapping(string => uint256) public nameToFavoriteNumber;
 
     struct People {
@@ -15,6 +17,7 @@ contract SimpleStorage {
 
     function store(uint256 _favoriteNumber) public virtual {
         favoriteNumber = _favoriteNumber;
+        emit storeNumber(msg.sender, _favoriteNumber);
     }
 
     function retrieve() public view returns (uint256) {

@@ -1,0 +1,18 @@
+{
+    "version": "1",
+    "name": "Number Set",
+    "abis": {
+      "storeNumber": {
+        "path": "./abi/SimpleStorage.json"
+      }
+    },
+    "chains": ["mxc-wannsee"],
+    "instances": [
+      {
+        "abi": "storeNumber",
+        "address": "0xac3d94bb0Cd1f15019D095bFe2371769Bca1C393",
+        "startBlock": 278624,
+        "chain": "mxc-wannsee"
+      }
+    ]
+}

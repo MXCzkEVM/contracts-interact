@@ -21,6 +21,9 @@ const networkConfig = {
         c_simpleStorage: `0x77E5a8bE0bb40212458A18dEC1A9752B04Cb6EA1`,
         c_moonToken: `0xe031013A7B7Caf05FC20Bdc49B731E3F2f0cAfFd`,
         c_faucet: `0xEAA4b0e2e0CB6Ce39B547767cEd6711e704831E4`,
+        c_multCall: `0xD90bE8d98f56b8B6B1Cc22f42bc990290032bC49`,
+        c_mep1002: `0x8DD0d6b0238c26C14946095181A6C9671970B7cA`,
+        c_mep_name: `0x1D691e7B46c0c0295677171e1A71829fD1F71D1a`,
     },
     167004: {
         name: "taiko",

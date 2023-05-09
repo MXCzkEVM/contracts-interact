@@ -42,6 +42,13 @@ const faucetMain = async () => {
     // console.log(`${Faucet.address} is owner: ${isOwner}`)
     // const faucetBalance = await MoonToken.balanceOf(Faucet.address)
     // console.log(`faucet moon token balance : ${faucetBalance}`)
+
+    const userBalance = await MoonToken.balanceOf(
+        "0x6aa0DAF6C3d66651a50e7918E6e1fa9E024da1a7"
+    )
+    console.log(
+        `0x6aa0DAF6C3d66651a50e7918E6e1fa9E024da1a7 - moon token balance : ${userBalance}`
+    )
     // ======== moonToken ========
 
     // ======== faucet ========

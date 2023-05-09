@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
-import "./interface/IERC20.sol";
+import "./interfaces/IERC20V2.sol";
 
 error Faucet_NotOwner();
 error Faucet_ReqMultiTimes();

@@ -23,10 +23,69 @@ module.exports = {
     solidity: {
         compilers: [
             {
-                version: "0.8.4",
+                version: "0.8.18",
             },
             {
                 version: "0.8.17",
+            },
+            {
+                version: "0.8.15",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 99999,
+                    },
+                },
+            },
+
+            {
+                version: "0.8.4",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 99999,
+                    },
+                },
+            },
+
+            {
+                version: "0.6.12",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 99999,
+                    },
+                },
+            },
+            {
+                version: "0.6.6",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 99999,
+                    },
+                },
+            },
+            {
+                version: "0.5.16",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 99999,
+                    },
+                },
+            },
+            {
+                version: "0.4.24",
+            },
+            {
+                version: "0.4.18",
+                settings: {
+                    optimizer: {
+                        enabled: true,
+                        runs: 99999,
+                    },
+                },
             },
         ],
     },
@@ -48,7 +107,7 @@ module.exports = {
         arbiture_goerli: {
             url: "https://goerli-rollup.arbitrum.io/rpc",
             chainId: 421613,
-            accounts: [PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY2],
         },
         wannsee: {
             url: "https://wannsee-rpc.mxc.com",
