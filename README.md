@@ -16,6 +16,7 @@ test
 hh test test/unit/Faucet.test.js
 hh test test/unit/MXCToken.test.js
 hh test test/unit/GetInitHash.test.js
+hh test test/unit/DHXToken.test.js
 
 hh console --network wannsee
 await network.provider.send("eth_blockNumber", [])
@@ -23,9 +24,10 @@ await network.provider.send("eth_blockNumber", [])
 deploy
 hh deploy --tags faucet --network wannsee
 hh deploy --tags faucet --network taiku
-hh deploy --tags simple_storage --network wannsee
+hh deploy --tags simpleStorage --network wannsee
 hh deploy --network taiku
 hh deploy --network wannsee
+hh deploy --tags dhxToken --network wannsee
 
 [taiku]
 simpleStorage
