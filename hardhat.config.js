@@ -12,7 +12,7 @@ require("@nomicfoundation/hardhat-chai-matchers")
 // require("solidity-coverage")
 // require("hardhat-storage-layout")
 // require("@nomicfoundation/hardhat-toolbox")
-// require("@openzeppelin/hardhat-upgrades")
+require("@openzeppelin/hardhat-upgrades")
 
 const PRIVATE_KEY_ADMIN = process.env.PRIVATE_KEY_ADMIN
 const PRIVATE_KEY1 = process.env.PRIVATE_KEY1
