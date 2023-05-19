@@ -19,4 +19,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     })
 }
 
-module.exports.tags = ["all", "simpleStorage"]
+module.exports.tags = ["all", "simple_storage"]

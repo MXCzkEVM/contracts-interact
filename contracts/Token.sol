@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
-import "../interfaces/IERC20V2.sol";
+import "./interfaces/IERC20V2.sol";
 
 /* 
 1 user can tranfer the token receied in faucet 
