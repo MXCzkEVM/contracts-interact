@@ -17,6 +17,14 @@ mep1002.mint('0x87756a7a4ffffff')
 0x58b997c6e88ca0404ccfa790fa224a29c3b0b95350511494f20041270df82949
 mep1002.setName('0x87756a7a4ffffff', '63970416519386779895700883807905088887598688597384251015603919759227108350085')
 0x5382eafc1d152b8948cecbf56ccdb8f4bc81c04e2258a12ce1447b1ce055c2c8
+
+0x087756a292ffffff
+0xd16a9b6aeeec4ee0d589723f865da0ce9692c6e5984688ac86395ebb7d7010cc
+mep1002.setName('0x087756a292ffffff', '53551285823785723237713183774026980791113027755853721001936078284267512544183')
+
+0x08775698a3ffffff
+0x3922049f7e4040d54991719395df41962679c6ad9671d2566d1a162ec4d4687b
+mep1002.setName('0x08775698a3ffffff', '')
 */
 
 const labelhash = (label) =>
@@ -39,17 +47,23 @@ const mep1002 = async () => {
     const [deployer, user1, user2] = await ethers.getSigners()
     const mep1002 = new ethers.Contract(config.c_mep1002, mep1002Abi, deployer)
     const mepName = new ethers.Contract(config.c_mep_name, mepNameAbi, deployer)
-    const tokenName = await mep1002.tokenNames("0x87756a7a4ffffff")
-    console.log(tokenName)
 
-    // const h3IndexRes7 = getRandomH3Index(7)
-    // const h3IndexRes7Big = BigNumber.from(`0x${h3IndexRes7}`)
-    // let res = await mep1002.mint(h3IndexRes7Big)
-    // console.log(res)
+    // readName
+    // const tokenName = await mep1002.tokenNames("0x87756a7a4ffffff")
+    // console.log(tokenName)
+
+    // Mint
+    const h3IndexRes7 = getRandomH3Index(7)
+    const h3IndexRes7Big = BigNumber.from(`0x${h3IndexRes7}`)
+    console.log(h3IndexRes7Big)
+    let res = await mep1002.mint(h3IndexRes7Big)
+    console.log(res)
     // let nameWrapperTokenId = BigNumber.from(
-    //     "63970416519386779895700883807905088887598688597384251015603919759227108350085"
+    //     "53551285823785723237713183774026980791113027755853721001936078284267512544183"
     // )
-    // const h3IndexRes7Big = BigNumber.from(`0x87756a7a4ffffff`)
+
+    // setName
+    // const h3IndexRes7Big = BigNumber.from(`0x08775698a3ffffff`)
     // let res = await mep1002.callStatic.setName(
     //     h3IndexRes7Big,
     //     nameWrapperTokenId
@@ -57,7 +71,7 @@ const mep1002 = async () => {
     // await mep1002.setName(h3IndexRes7Big, nameWrapperTokenId)
     // console.log(labelhash("robot.MXC"))
 
-    // let res = await mepName.ownerOf(BigNumber.from(`0x87756a7a4ffffff`))
+    // let res = await mepName.ownerOf(BigNumber.from(`0x08775698a3ffffff`))
     // console.log(res)
 }
 

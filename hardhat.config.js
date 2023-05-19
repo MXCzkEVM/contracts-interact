@@ -14,6 +14,7 @@ require("@nomicfoundation/hardhat-chai-matchers")
 // require("@nomicfoundation/hardhat-toolbox")
 // require("@openzeppelin/hardhat-upgrades")
 
+const PRIVATE_KEY_ADMIN = process.env.PRIVATE_KEY_ADMIN
 const PRIVATE_KEY1 = process.env.PRIVATE_KEY1
 const PRIVATE_KEY2 = process.env.PRIVATE_KEY2
 const PRIVATE_KEY3 = process.env.PRIVATE_KEY3
@@ -112,7 +113,7 @@ module.exports = {
         wannsee: {
             url: "https://wannsee-rpc.mxc.com",
             chainId: 5167003,
-            accounts: [PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY_ADMIN, PRIVATE_KEY1],
             gasPrice: 6000000000000,
         },
         taiku: {

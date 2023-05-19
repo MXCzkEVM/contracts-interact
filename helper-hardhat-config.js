@@ -18,6 +18,8 @@ const networkConfig = {
     },
     5167003: {
         name: "wannsee",
+        live: false,
+        timeout: 120000000,
         c_simpleStorage: `0x77E5a8bE0bb40212458A18dEC1A9752B04Cb6EA1`,
         c_moonToken: `0xe031013A7B7Caf05FC20Bdc49B731E3F2f0cAfFd`,
         c_faucet: `0xEAA4b0e2e0CB6Ce39B547767cEd6711e704831E4`,
