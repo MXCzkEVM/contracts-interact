@@ -11,6 +11,7 @@ hh run scripts/testnet.js
 hh run scripts/contracts.js
 hh run scripts/swap.js
 hh run scripts/aave/index.js --network wannsee
+hh run scripts/aave/index.js --network ganache
 
 test
 hh test test/unit/Faucet.test.js

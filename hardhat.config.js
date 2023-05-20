@@ -20,6 +20,11 @@ const PRIVATE_KEY2 = process.env.PRIVATE_KEY2
 const PRIVATE_KEY3 = process.env.PRIVATE_KEY3
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
 
+const ganacheAcconts = [
+    "f75b01304fb260e662f91de0f884bb764c42dfc95504f42a37b3e311d61071cd",
+    "5d08e4c5bf7e2abd6d9d0146303417eaa26b216ec2b89f6c7edca9eb6dc6423e",
+]
+
 module.exports = {
     solidity: {
         compilers: [
@@ -96,12 +101,18 @@ module.exports = {
             default: 0,
             167004: 0,
             5167003: 0,
+            1337: 0,
         },
         user: {
             default: 1,
         },
     },
     networks: {
+        ganache: {
+            chainId: 1337,
+            url: "HTTP://127.0.0.1:7545",
+            accounts: ganacheAcconts,
+        },
         hardhat: {
             chainId: 31337,
         },

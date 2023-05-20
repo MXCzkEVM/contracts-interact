@@ -4,6 +4,24 @@ const {
     rateStrategyStableTwo,
 } = require("./rateStrategies")
 
+const strategyDHX = {
+    strategy: rateStrategyVolatileOne,
+    baseLTVAsCollateral: "7000",
+    liquidationThreshold: "7500",
+    liquidationBonus: "11000",
+    liquidationProtocolFee: "1000",
+    borrowingEnabled: true,
+    stableBorrowRateEnabled: false,
+    flashLoanEnabled: false,
+    reserveDecimals: "18",
+    aTokenImpl: "AToken",
+    reserveFactor: "2000",
+    supplyCap: "0",
+    borrowCap: "0",
+    debtCeiling: "0",
+    borrowableIsolation: false,
+}
+
 const strategyDAI = {
     strategy: rateStrategyStableTwo,
     baseLTVAsCollateral: "7500",
@@ -59,6 +77,7 @@ const strategyLINK = {
 }
 
 module.exports = {
+    strategyDHX,
     strategyDAI,
     strategyUSDC,
     strategyLINK,
