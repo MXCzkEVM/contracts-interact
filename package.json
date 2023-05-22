@@ -1,9 +1,12 @@
 {
     "name": "web3",
     "version": "1.0.0",
-    "scripts": {},
     "author": "",
     "license": "ISC",
+    "scripts": {
+        "aave": "hh run scripts/aave/index.js --network wannsee",
+        "aave-ui": "hh run scripts/aave/ui.js --network wannsee"
+    },
     "devDependencies": {
         "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
         "@nomicfoundation/hardhat-network-helpers": "^1.0.8",

@@ -14,6 +14,7 @@ const {
     getAAveOracle,
     getTokenConfig,
     getReservesSetupHelper,
+    getDeployMents,
 } = require("./address.js")
 
 const parseEther = ethers.utils.parseEther
@@ -26,65 +27,86 @@ const BigNumber = ethers.BigNumber
 async function main() {
     // initContract()
 
-    // await ReservesSetupHelperFunc()
+    await ReservesSetupHelperFunc()
     // await PoolAddressesProviderFunc()
     // await AclManagerFunc()
-    await PoolConfiguratorFunc()
+    // await PoolConfiguratorFunc()
     // await PoolFunc()
-    // await UiPoolDataProviderV3Func()
     // await PoolDataProviderFunc()
+
+    // await MintToken()
+}
+
+const MintToken = async () => {
+    const [deployer] = await ethers.getSigners()
+    let aaveToken = await getDeployMents("AAVE-TestnetMintableERC20-Aave")
+    // await aaveToken["mint(uint256)"](parseEther("1000"))
+    // console.log(deployer.address)
+    let balance = await aaveToken.balanceOf(deployer.address)
+    console.log(formatEther(balance))
 }
 
 const ReservesSetupHelperFunc = async () => {
-    // const ACLManager = await getACLManager()
-    // const ReservesSetupHelper = await getReservesSetupHelper()
-    // await ACLManager.addRiskAdmin(ReservesSetupHelper.address)
-    // const config = [
-    //     {
-    //         asset: tokenAddress.TOKEN_DAI,
-    //         baseLTV: "7500",
-    //         liquidationThreshold: "8000",
-    //         liquidationBonus: "10500",
-    //         reserveFactor: "1000",
-    //         borrowCap: "0",
-    //         supplyCap: "0",
-    //         stableBorrowingEnabled: true,
-    //         borrowingEnabled: true,
-    //         flashLoanEnabled: false,
-    //     },
-    // ]
-    // await ReservesSetupHelper.configureReserves(
-    //     contractsAddress.POOL_CONFIGURATOR,
-    //     config,
-    //     {
-    //         gasLimit: 5750000,
-    //     }
-    // )
-    // await ACLManager.removeRiskAdmin(ReservesSetupHelper.address)
-}
-
-const UiPoolDataProviderV3Func = async () => {
-    // 配置资产
-    const UiPoolDataProviderV3 = await getUiPoolDataProviderV3()
-    const reservesData = await UiPoolDataProviderV3.getReservesData(
-        contractsAddress.POOL_ADDRESS_PROVIDER
+    const ACLManager = await getACLManager()
+    const ReservesSetupHelper = await getReservesSetupHelper()
+    await ACLManager.addRiskAdmin(ReservesSetupHelper.address)
+    const config = [
+        {
+            asset: tokenAddress.TOKEN_RIDE,
+            baseLTV: "5000",
+            liquidationThreshold: "6500",
+            liquidationBonus: "11000",
+            reserveFactor: "0",
+            borrowCap: "0",
+            supplyCap: "0",
+            stableBorrowingEnabled: true,
+            borrowingEnabled: true,
+            flashLoanEnabled: false,
+        },
+        {
+            asset: tokenAddress.TOKEN_WMXC,
+            baseLTV: "5000",
+            liquidationThreshold: "6500",
+            liquidationBonus: "11000",
+            reserveFactor: "0",
+            borrowCap: "0",
+            supplyCap: "0",
+            stableBorrowingEnabled: true,
+            borrowingEnabled: true,
+            flashLoanEnabled: false,
+        },
+        {
+            asset: tokenAddress.TOKEN_XSD,
+            baseLTV: "5000",
+            liquidationThreshold: "6500",
+            liquidationBonus: "11000",
+            reserveFactor: "0",
+            borrowCap: "0",
+            supplyCap: "0",
+            stableBorrowingEnabled: true,
+            borrowingEnabled: true,
+            flashLoanEnabled: false,
+        },
+    ]
+    await ReservesSetupHelper.configureReserves(
+        contractsAddress.POOL_CONFIGURATOR,
+        config,
+        {
+            gasLimit: 5750000,
+        }
     )
-    console.log(reservesData)
-    const reservesList = await UiPoolDataProviderV3.getReservesList(
-        contractsAddress.POOL_ADDRESS_PROVIDER
-    )
-    console.log(reservesList)
+    await ACLManager.removeRiskAdmin(ReservesSetupHelper.address)
 }
 
 const PoolDataProviderFunc = async () => {
     const PoolDataProvider = await getPoolDataProvider()
-    // 查看资产池储备
-    let allToken = await PoolDataProvider.getAllReservesTokens()
-    console.log(allToken)
-    const reserveData = await PoolDataProvider.getReserveData(
-        tokenAddress.TOKEN_AAVE
-    )
-    console.log(reserveData)
+    // // 查看资产池储备
+    // let allToken = await PoolDataProvider.getAllReservesTokens()
+    // console.log(allToken)
+    // const reserveData = await PoolDataProvider.getReserveData(
+    //     tokenAddress.TOKEN_AAVE
+    // )
+    // console.log(reserveData)
 }
 
 const PoolFunc = async () => {
@@ -128,6 +150,11 @@ const PoolConfiguratorFunc = async () => {
     const AAveOracle = await getAAveOracle()
     const UiPoolDataProviderV3 = await getUiPoolDataProviderV3()
 
+    // for (let item of getTokens.base) {
+    //     await PoolConfigurator.setReserveFreeze(item, true)
+    //     // await PoolConfigurator.setReserveActive(item, true)
+    // }
+
     // {
     //     asset: tokenAddress.TOKEN_DAI,
     //     baseLTV: "7500",
@@ -141,7 +168,7 @@ const PoolConfiguratorFunc = async () => {
     //     flashLoanEnabled: true,
     // },
 
-    await PoolConfigurator.setReserveBorrowing(tokenAddress.TOKEN_DHX, true)
+    // await PoolConfigurator.setReserveBorrowing(tokenAddress.TOKEN_DHX, true)
     // await PoolConfigurator.callStatic.configureReserveAsCollateral(
     //     tokenAddress.TOKEN_DAI,
     //     "7500",
@@ -174,8 +201,8 @@ const PoolConfiguratorFunc = async () => {
     // await PoolConfigurator.setReserveFreeze(tokenAddress.TOKEN_DAI, true)
     // await PoolConfigurator.setReserveFreeze(tokenAddress.TOKEN_DAI, false)
 
-    // 设置可用
-    // await PoolConfigurator.setReserveActive(tokenAddress.TOKEN_DAI, false)
+    // 设置可用 - 不可用的话界面有资产 但是为0
+    // await PoolConfigurator.setReserveActive(tokenAddress.TOKEN_PARK, true)
 
     // 批量
     // const reservesList = await UiPoolDataProviderV3.getReservesList(
@@ -209,13 +236,6 @@ const PoolConfiguratorFunc = async () => {
     // await PoolConfigurator.initReserves(WMxcToken)
     // await PoolConfigurator.initReserves(XSDToken)
 
-    // for (let item of getTokens.constom) {
-    //     await AAveOracle.setAssetSources(
-    //         [item],
-    //         [contractsAddress.PriceAggregator]
-    //     )
-    // }
-
     // await AAveOracle.setAssetSources(
     //     [tokenAddress.TOKEN_DHX],
     //     [contractsAddress.PriceAggregator]
@@ -225,8 +245,8 @@ const PoolConfiguratorFunc = async () => {
     //     [contractsAddress.PriceAggregator]
     // )
     // await AAveOracle.setAssetSources(
-    //     [tokenAddress.TOKEN_RIDE],
-    //     [contractsAddress.PriceAggregator]
+    //     [tokenAddress.TOKEN_RIDE, tokenAddress.TOKEN_PARK],
+    //     [contractsAddress.PriceAggregator, contractsAddress.PriceAggregator]
     // )
     // await AAveOracle.setAssetSources(
     //     [tokenAddress.TOKEN_WMXC],

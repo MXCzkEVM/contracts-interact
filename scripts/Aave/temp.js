@@ -11,40 +11,6 @@ const {
 } = require("./market-config-helpers.js")
 const { chunk, isValidAddress } = require("./utils.js")
 
-const setReseves = async () => {
-    const config = [
-        {
-            asset: "0x3EeE70b42fD410EbA12BE899396e540776e97F70",
-            baseLTV: "7500",
-            liquidationThreshold: "8000",
-            liquidationBonus: "10500",
-            reserveFactor: "1000",
-            borrowCap: "2000000000",
-            supplyCap: "2000000000",
-            stableBorrowingEnabled: true,
-            borrowingEnabled: true,
-            flashLoanEnabled: false,
-        },
-    ]
-
-    const addressProvider = await ethers.getContractAt(
-        PoolAddressesProviderAbi,
-        wannseeContract.POOL_ADDRESS_PROVIDER
-    )
-
-    const reservesSetupArtifact = await deployments.get("ReservesSetupHelper")
-    const reservesSetupHelper = await ethers.getContractAt(
-        reservesSetupArtifact.abi,
-        reservesSetupArtifact.address
-    )
-    const poolConfiguratorAddress = await addressProvider.getPoolConfigurator()
-    await reservesSetupHelper.configureReserves(
-        poolConfiguratorAddress,
-        config,
-        { gasLimit: 5750000 }
-    )
-}
-
 const configureReservesByHelper = async (MARKET_NAME) => {
     const [deployer, user1, user2] = await ethers.getSigners()
     const network = hre.network.name
