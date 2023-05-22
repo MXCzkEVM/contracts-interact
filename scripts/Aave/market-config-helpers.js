@@ -5,6 +5,7 @@ const {
     strategyDAI,
     strategyUSDC,
     strategyLINK,
+    strategyDHX,
 } = require("./config/reservesConfigs.js")
 const { networkConfig } = require("../../helper-hardhat-config.js")
 const chainId = network.config.chainId
@@ -15,16 +16,17 @@ const TESTNET_TOKEN_PREFIX = `-TestnetMintableERC20-Aave`
 
 const wannseeMarket = {
     ...CommonsConfig,
-    MarketId: "Ethereum Aave Market",
-    ATokenNamePrefix: "Ethereum",
-    StableDebtTokenNamePrefix: "Ethereum",
-    VariableDebtTokenNamePrefix: "Ethereum",
-    SymbolPrefix: "Eth",
+    MarketId: "Wannsee Market",
+    ATokenNamePrefix: "Wannsee",
+    StableDebtTokenNamePrefix: "Wannsee",
+    VariableDebtTokenNamePrefix: "Wannsee",
+    SymbolPrefix: "Mxc",
     ProviderId: 30,
     ReservesConfig: {
         DAI: strategyDAI,
         USDC: strategyUSDC,
         LINK: strategyLINK,
+        // DHX: strategyDHX,
     },
     ReserveAssets: {
         [eEthereumNetwork.wannsee]: {
