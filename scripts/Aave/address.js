@@ -10,6 +10,7 @@ const PoolAbi = require("../../abi/aave/Pool.json")
 const ACLManagerAbi = require("../../abi/aave/ACLManager.json")
 const AaveOracleAbi = require("../../abi/aave/AaveOracle.json")
 const ReservesSetupHelperAbi = require("../../abi/aave/ReservesSetupHelper.json")
+const atokenAbi = require("../../abi/aave/AToken.json")
 
 const tokens = {
     5167003: {
@@ -22,8 +23,6 @@ const tokens = {
         TOKEN_AAVE: "0x5111dbCF87aF7BB8Abe0CD069E06Ec32657c4844",
         TOKEN_EURS: "0x45fEf9AE19dbAc9f58C610d776F47Df21e3CfF54",
 
-        // TOKEN_PARK: "0x6774442e57A9c16da8c447c4b151a4D7f306d92f",
-        // TOKEN_RIDE: "0x259444F838874C455fe5B5E8fdb858ecC2Ea7911",
         TOKEN_PARK: "0xfF66Bbed4DC076A4cA8AE03D39dD4194117238cC",
         TOKEN_RIDE: "0xf49e9ADe92ff5206eca5672C36d6e9E79223506b",
         TOKEN_DHX: "0x4cAE8d6BdB2c4a78279Ade23151fa177aA6C99b2",
@@ -99,6 +98,7 @@ const contracts = {
         IncentivesProxy: "0xe8D674447717Cbd8E0Ecc7C12FA1EB0245e8d942",
         AaveOracle: "0x2D36373Db3Ca79c3d1DFa2E91Df3E1aC2879Df7a",
         ReservesSetupHelper: "0xc588B56B944E70C1195a2Bb6868087DaB58B5A10",
+        Faucet: "0x3f84e53D58c3f2423B8c8dc7E3e9c9f46a3d7089",
 
         ChainLinkEthUsd: "0xca156A2D75c5E5d9Eea903A723FE8B94f0D6bbcF",
         PriceAggregator: "0x7384419eAEa8568af986fB0E1973FF07A1DAEb8f",
@@ -171,6 +171,11 @@ const getPoolDataProvider = async () => {
     )
 }
 
+const getAtoken = async () => {
+    const [deployer] = await ethers.getSigners()
+    return new ethers.Contract(contracts[chainId].AToken, atokenAbi, deployer)
+}
+
 const getUiPoolDataProviderV3 = async () => {
     const [deployer] = await ethers.getSigners()
     return new ethers.Contract(
@@ -239,6 +244,7 @@ const initContract = async () => {
     const AaveOracle = (await deployments.get("AaveOracle-Aave")).address
     const ReservesSetupHelper = (await deployments.get("ReservesSetupHelper"))
         .address
+    const Faucet = (await deployments.get("Faucet-Aave")).address
 
     console.log(`POOL_DATA_PROVIDER: "${POOL_DATA_PROVIDER}",`)
     console.log(`POOL_ADDRESS_PROVIDER: "${POOL_ADDRESS_PROVIDER}",`)
@@ -259,6 +265,7 @@ const initContract = async () => {
     console.log(`IncentivesProxy: "${IncentivesProxy}",`)
     console.log(`AaveOracle: "${AaveOracle}",`)
     console.log(`ReservesSetupHelper: "${ReservesSetupHelper}",`)
+    console.log(`Faucet: "${Faucet}",`)
 
     const TOKEN_DAI = (await deployments.get("DAI-TestnetMintableERC20-Aave"))
         .address
@@ -320,6 +327,12 @@ const getTokenConfig = ({ asset, symbol, dec = 18, rateType = 2 }) => {
     ]
 }
 
+const getDeployMents = async (name) => {
+    const [deployer] = await ethers.getSigners()
+    const c = await deployments.get(name)
+    return new ethers.Contract(c.address, c.abi, deployer)
+}
+
 module.exports = {
     contractsAddress: contracts[chainId],
     tokenAddress: tokens[chainId],
@@ -334,4 +347,6 @@ module.exports = {
     getAAveOracle,
     getTokenConfig,
     getReservesSetupHelper,
+    getDeployMents,
+    getAtoken,
 }
