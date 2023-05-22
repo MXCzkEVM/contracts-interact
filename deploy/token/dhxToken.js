@@ -1,5 +1,8 @@
 const { network, ethers, upgrades } = require("hardhat")
-const { networkConfig, developmentChains } = require("../helper-hardhat-config")
+const {
+    networkConfig,
+    developmentChains,
+} = require("../../helper-hardhat-config")
 
 require("dotenv").config()
 

@@ -7,7 +7,13 @@ const {
     getACLManager,
     getPoolAddressesProvider,
     tokenAddress,
+    getTokens,
     contractsAddress,
+    getUiPoolDataProviderV3,
+    initContract,
+    getAAveOracle,
+    getTokenConfig,
+    getReservesSetupHelper,
 } = require("./address.js")
 
 const parseEther = ethers.utils.parseEther
@@ -18,22 +24,78 @@ const BigNumber = ethers.BigNumber
 // const config = networkConfig[chainId]
 
 async function main() {
-    // PoolAddressesProviderFunc()
-    // AclManagerFunc()
-    // PoolFunc()
-    // PoolDataProviderFunc()
-    PoolConfiguratorFunc()
+    // initContract()
+
+    // await ReservesSetupHelperFunc()
+    // await PoolAddressesProviderFunc()
+    // await AclManagerFunc()
+    await PoolConfiguratorFunc()
+    // await PoolFunc()
+    // await UiPoolDataProviderV3Func()
+    // await PoolDataProviderFunc()
+}
+
+const ReservesSetupHelperFunc = async () => {
+    // const ACLManager = await getACLManager()
+    // const ReservesSetupHelper = await getReservesSetupHelper()
+    // await ACLManager.addRiskAdmin(ReservesSetupHelper.address)
+    // const config = [
+    //     {
+    //         asset: tokenAddress.TOKEN_DAI,
+    //         baseLTV: "7500",
+    //         liquidationThreshold: "8000",
+    //         liquidationBonus: "10500",
+    //         reserveFactor: "1000",
+    //         borrowCap: "0",
+    //         supplyCap: "0",
+    //         stableBorrowingEnabled: true,
+    //         borrowingEnabled: true,
+    //         flashLoanEnabled: false,
+    //     },
+    // ]
+    // await ReservesSetupHelper.configureReserves(
+    //     contractsAddress.POOL_CONFIGURATOR,
+    //     config,
+    //     {
+    //         gasLimit: 5750000,
+    //     }
+    // )
+    // await ACLManager.removeRiskAdmin(ReservesSetupHelper.address)
+}
+
+const UiPoolDataProviderV3Func = async () => {
+    // 配置资产
+    const UiPoolDataProviderV3 = await getUiPoolDataProviderV3()
+    const reservesData = await UiPoolDataProviderV3.getReservesData(
+        contractsAddress.POOL_ADDRESS_PROVIDER
+    )
+    console.log(reservesData)
+    const reservesList = await UiPoolDataProviderV3.getReservesList(
+        contractsAddress.POOL_ADDRESS_PROVIDER
+    )
+    console.log(reservesList)
+}
+
+const PoolDataProviderFunc = async () => {
+    const PoolDataProvider = await getPoolDataProvider()
+    // 查看资产池储备
+    let allToken = await PoolDataProvider.getAllReservesTokens()
+    console.log(allToken)
+    const reserveData = await PoolDataProvider.getReserveData(
+        tokenAddress.TOKEN_AAVE
+    )
+    console.log(reserveData)
 }
 
 const PoolFunc = async () => {
     // Pool
     const Pool = await getPool()
-    let reserveData = await Pool.getReserveData(tokenAddress.TOKEN_DAI)
-    console.log(reserveData)
-    let configuration = await Pool.getConfiguration(tokenAddress.TOKEN_DAI)
-    console.log(configuration)
-    let ReservesList = await Pool.getReservesList()
-    console.log(ReservesList)
+    // let reserveData = await Pool.getReserveData(tokenAddress.TOKEN_DAI)
+    // console.log(reserveData)
+    // let configuration = await Pool.getConfiguration(tokenAddress.TOKEN_DHX)
+    // console.log(configuration)
+    // let ReservesList = await Pool.getReservesList()
+    // console.log(ReservesList)
 }
 
 const PoolAddressesProviderFunc = async () => {
@@ -61,99 +123,119 @@ const AclManagerFunc = async () => {
     console.log(isAssetListingAdmin, "isAssetListingAdmin")
 }
 
-const PoolDataProviderFunc = async () => {
-    // 配置资产
-    const PoolDataProvider = await getPoolDataProvider()
-    // 查看资产池储备
-    const reservesList = await PoolDataProvider.getReservesList(
-        contractsAddress.POOL_ADDRESS_PROVIDER
-    )
-    console.log(reservesList)
-    // const reservesData = await PoolDataProvider.getReservesData(
-    //     contractsAddress.POOL_ADDRESS_PROVIDER
-    // )
-    // console.log(reservesData)
-}
-
 const PoolConfiguratorFunc = async () => {
-    const PoolConfigurator = getPoolConfigurator()
-    // 清除资产
-    // await PoolConfigurator.dropReserve(
-    //     "0x6774442e57A9c16da8c447c4b151a4D7f306d92f"
+    const PoolConfigurator = await getPoolConfigurator()
+    const AAveOracle = await getAAveOracle()
+    const UiPoolDataProviderV3 = await getUiPoolDataProviderV3()
+
+    // {
+    //     asset: tokenAddress.TOKEN_DAI,
+    //     baseLTV: "7500",
+    //     liquidationThreshold: "8000",
+    //     liquidationBonus: "10500",
+    //     reserveFactor: "1000",
+    //     borrowCap: "0",
+    //     supplyCap: "2000000000",
+    //     stableBorrowingEnabled: true,
+    //     borrowingEnabled: true,
+    //     flashLoanEnabled: true,
+    // },
+
+    await PoolConfigurator.setReserveBorrowing(tokenAddress.TOKEN_DHX, true)
+    // await PoolConfigurator.callStatic.configureReserveAsCollateral(
+    //     tokenAddress.TOKEN_DAI,
+    //     "7500",
+    //     "8000",
+    //     "10500"
     // )
-    // // 冻结
-    // await PoolConfigurator.setReserveFreeze(
-    //     "0x3EeE70b42fD410EbA12BE899396e540776e97F70",
+    // await PoolConfigurator.setBorrowCap(tokenAddress.TOKEN_DAI, "0")
+    // await PoolConfigurator.setReserveStableRateBorrowing(
+    //     tokenAddress.TOKEN_DAI,
     //     true
     // )
-    // // 解冻
-    // await PoolConfigurator.setReserveFreeze(
-    //     "0x5d4CD7625c1aa4a9A92AD6c1E3053D2C28182E04",
-    //     false
-    // )
+    // await PoolConfigurator.setReserveFlashLoaning(tokenAddress.TOKEN_DAI, false)
+    // PoolConfigurator.setSupplyCap(tokenAddress.TOKEN_DAI, "2000000000")
+    // PoolConfigurator.setReserveFactor(tokenAddress.TOKEN_DAI, "1000")
+
+    // 清除资产
+    // await PoolConfigurator.dropReserve()
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_RIDE)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_PARK)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_DAI)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_EURS)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_USDT)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_USDC)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_WBTC)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_AAVE)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_LINK)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_WETH)
+
+    // 冻结/解冻
+    // await PoolConfigurator.setReserveFreeze(tokenAddress.TOKEN_DAI, true)
+    // await PoolConfigurator.setReserveFreeze(tokenAddress.TOKEN_DAI, false)
+
     // 设置可用
-    await PoolConfigurator.setReserveActive(tokenAddress.TOKEN_DAI, true)
-    // const block = await ethers.provider.getBlockNumber()
-    // // 索引事件
-    // const reserveInitEvents = await PoolConfigurator.queryFilter(
-    //     "ReserveInitialized",
-    //     672675,
-    //     block
+    // await PoolConfigurator.setReserveActive(tokenAddress.TOKEN_DAI, false)
+
+    // 批量
+    // const reservesList = await UiPoolDataProviderV3.getReservesList(
+    //     contractsAddress.POOL_ADDRESS_PROVIDER
     // )
-    // reserveInitEvents.map((item) => {
-    //     let args = item.args
-    //     console.log(`assets: ${args.asset}`)
-    //     console.log(`aToken: ${args.aToken}`)
-    //     console.log(`stableDebtToken: ${args.stableDebtToken}`)
-    //     console.log(`variableDebtToken: ${args.variableDebtToken}`)
-    //     console.log(
-    //         `interestRateStrategyAddress: ${args.interestRateStrategyAddress}`
-    //     )
-    //     console.log("------------------------")
+    // console.log(reservesList)
+
+    // const DhxToken = getTokenConfig({
+    //     asset: tokenAddress.TOKEN_DHX,
+    //     symbol: "DHX",
     // })
-    // const DHX = [
-    //     {
-    //         aTokenImpl: "0xa755b8Ba346B18A74cd1a74A48be528a5EdEc446",
-    //         stableDebtTokenImpl: "0x22BC02Bf14375785935c3c66fd85d26d133Ab9C9",
-    //         variableDebtTokenImpl: "0xb9c2e4A309b1B1151fF171237CA68646c1dC5017",
-    //         underlyingAssetDecimals: "18",
-    //         interestRateStrategyAddress:
-    //             "0x6358c2BB58a56B1b4daF66Ac7f7721059E08CDD2",
-    //         underlyingAsset: "0x3EeE70b42fD410EbA12BE899396e540776e97F70",
-    //         treasury: "0x0000000000000000000000000000000000000000",
-    //         incentivesController: "0x0000000000000000000000000000000000000000",
-    //         underlyingAssetName: "DHX",
-    //         aTokenName: "MXC Wannsee DHX",
-    //         aTokenSymbol: "aMxcDHX",
-    //         variableDebtTokenName: "Wannsee Mxc Variable Debt DHX",
-    //         variableDebtTokenSymbol: "variableDebtMxcDHX",
-    //         stableDebtTokenName: "Wannsee Mxc Stable Debt DHX",
-    //         stableDebtTokenSymbol: "stableDebtMxcDAI",
-    //         params: "0x10",
-    //     },
-    // ]
-    // const PARK = [
-    //     {
-    //         aTokenImpl: "0xa755b8Ba346B18A74cd1a74A48be528a5EdEc446",
-    //         stableDebtTokenImpl: "0x22BC02Bf14375785935c3c66fd85d26d133Ab9C9",
-    //         variableDebtTokenImpl: "0xb9c2e4A309b1B1151fF171237CA68646c1dC5017",
-    //         underlyingAssetDecimals: "18",
-    //         interestRateStrategyAddress:
-    //             "0x6358c2BB58a56B1b4daF66Ac7f7721059E08CDD2",
-    //         underlyingAsset: "0x6774442e57A9c16da8c447c4b151a4D7f306d92f",
-    //         treasury: "0x0000000000000000000000000000000000000000",
-    //         incentivesController: "0x0000000000000000000000000000000000000000",
-    //         underlyingAssetName: "PARK",
-    //         aTokenName: "MXC Wannsee PARK",
-    //         aTokenSymbol: "aMxcPARK",
-    //         variableDebtTokenName: "Wannsee Mxc Variable Debt PARK",
-    //         variableDebtTokenSymbol: "variableDebtMxcPARK",
-    //         stableDebtTokenName: "Wannsee Mxc Stable Debt PARK",
-    //         stableDebtTokenSymbol: "stableDebtMxcDAI",
-    //         params: "0x10",
-    //     },
-    // ]
-    // await PoolConfigurator.initReserves(PARK)
+    // const ParkToken = getTokenConfig({
+    //     asset: tokenAddress.TOKEN_PARK,
+    //     symbol: "PARK",
+    // })
+    // const RideToken = getTokenConfig({
+    //     asset: tokenAddress.TOKEN_RIDE,
+    //     symbol: "RIDE",
+    // })
+    // const WMxcToken = getTokenConfig({
+    //     asset: tokenAddress.TOKEN_WMXC,
+    //     symbol: "WMXC",
+    // })
+    // const XSDToken = getTokenConfig({
+    //     asset: tokenAddress.TOKEN_XSD,
+    //     symbol: "XSD",
+    // })
+    // await PoolConfigurator.initReserves(DhxToken)
+    // await PoolConfigurator.initReserves(ParkToken)
+    // await PoolConfigurator.initReserves(RideToken)
+    // await PoolConfigurator.initReserves(WMxcToken)
+    // await PoolConfigurator.initReserves(XSDToken)
+
+    // for (let item of getTokens.constom) {
+    //     await AAveOracle.setAssetSources(
+    //         [item],
+    //         [contractsAddress.PriceAggregator]
+    //     )
+    // }
+
+    // await AAveOracle.setAssetSources(
+    //     [tokenAddress.TOKEN_DHX],
+    //     [contractsAddress.PriceAggregator]
+    // )
+    // await AAveOracle.setAssetSources(
+    //     [tokenAddress.TOKEN_PARK],
+    //     [contractsAddress.PriceAggregator]
+    // )
+    // await AAveOracle.setAssetSources(
+    //     [tokenAddress.TOKEN_RIDE],
+    //     [contractsAddress.PriceAggregator]
+    // )
+    // await AAveOracle.setAssetSources(
+    //     [tokenAddress.TOKEN_WMXC],
+    //     [contractsAddress.PriceAggregator]
+    // )
+    // await AAveOracle.setAssetSources(
+    //     [tokenAddress.TOKEN_XSD],
+    //     [contractsAddress.PriceAggregator]
+    // )
 }
 
 main().catch((error) => {
