@@ -16,15 +16,15 @@ const eEthereumNetwork = {
 
 const CommonsConfig = {
     MarketId: "Commons Aave Market",
-    ATokenNamePrefix: "Ethereum",
-    StableDebtTokenNamePrefix: "Ethereum",
-    VariableDebtTokenNamePrefix: "Ethereum",
-    SymbolPrefix: "Eth",
+    ATokenNamePrefix: "Wannseee",
+    StableDebtTokenNamePrefix: "Wannseee",
+    VariableDebtTokenNamePrefix: "Wannseee",
+    SymbolPrefix: "MXC",
     ProviderId: 8080,
     OracleQuoteCurrencyAddress: ZERO_ADDRESS,
     OracleQuoteCurrency: "USD",
     OracleQuoteUnit: "8",
-    WrappedNativeTokenSymbol: "WETH",
+    WrappedNativeTokenSymbol: "WMXC",
     ChainlinkAggregator: {
         [eEthereumNetwork.wannsee]: {
             LINK: ZERO_ADDRESS,
