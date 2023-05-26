@@ -1,8 +1,8 @@
 const { assert, expect } = require("chai")
 const { network, ethers } = require("hardhat")
-const { developmentChains } = require("../../helper-hardhat-config")
+const { developmentChains } = require("../../../helper-hardhat-config")
 
-const { increaseTime } = require("../../utils/utils")
+const { increaseTime } = require("../../../utils/utils")
 const parseEther = ethers.utils.parseEther
 const formatEther = ethers.utils.formatEther
 const getBalance = ethers.provider.getBalance

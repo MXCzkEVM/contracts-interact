@@ -52,7 +52,7 @@ const ReservesSetupHelperFunc = async () => {
     await ACLManager.addRiskAdmin(ReservesSetupHelper.address)
     const config = [
         {
-            asset: tokenAddress.TOKEN_RIDE,
+            asset: tokenAddress.TOKEN_GRYD,
             baseLTV: "5000",
             liquidationThreshold: "6500",
             liquidationBonus: "11000",
@@ -63,30 +63,30 @@ const ReservesSetupHelperFunc = async () => {
             borrowingEnabled: true,
             flashLoanEnabled: false,
         },
-        {
-            asset: tokenAddress.TOKEN_WMXC,
-            baseLTV: "5000",
-            liquidationThreshold: "6500",
-            liquidationBonus: "11000",
-            reserveFactor: "0",
-            borrowCap: "0",
-            supplyCap: "0",
-            stableBorrowingEnabled: true,
-            borrowingEnabled: true,
-            flashLoanEnabled: false,
-        },
-        {
-            asset: tokenAddress.TOKEN_XSD,
-            baseLTV: "5000",
-            liquidationThreshold: "6500",
-            liquidationBonus: "11000",
-            reserveFactor: "0",
-            borrowCap: "0",
-            supplyCap: "0",
-            stableBorrowingEnabled: true,
-            borrowingEnabled: true,
-            flashLoanEnabled: false,
-        },
+        // {
+        //     asset: tokenAddress.TOKEN_WMXC,
+        //     baseLTV: "5000",
+        //     liquidationThreshold: "6500",
+        //     liquidationBonus: "11000",
+        //     reserveFactor: "0",
+        //     borrowCap: "0",
+        //     supplyCap: "0",
+        //     stableBorrowingEnabled: true,
+        //     borrowingEnabled: true,
+        //     flashLoanEnabled: false,
+        // },
+        // {
+        //     asset: tokenAddress.TOKEN_XSD,
+        //     baseLTV: "5000",
+        //     liquidationThreshold: "6500",
+        //     liquidationBonus: "11000",
+        //     reserveFactor: "0",
+        //     borrowCap: "0",
+        //     supplyCap: "0",
+        //     stableBorrowingEnabled: true,
+        //     borrowingEnabled: true,
+        //     flashLoanEnabled: false,
+        // },
     ]
     await ReservesSetupHelper.configureReserves(
         contractsAddress.POOL_CONFIGURATOR,
@@ -186,6 +186,7 @@ const PoolConfiguratorFunc = async () => {
 
     // 清除资产
     // await PoolConfigurator.dropReserve()
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_DHX)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_RIDE)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_PARK)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_DAI)
@@ -210,9 +211,9 @@ const PoolConfiguratorFunc = async () => {
     // )
     // console.log(reservesList)
 
-    // const DhxToken = getTokenConfig({
-    //     asset: tokenAddress.TOKEN_DHX,
-    //     symbol: "DHX",
+    // const GrydToken = getTokenConfig({
+    //     asset: tokenAddress.TOKEN_GRYD,
+    //     symbol: "GRYD",
     // })
     // const ParkToken = getTokenConfig({
     //     asset: tokenAddress.TOKEN_PARK,
@@ -230,14 +231,14 @@ const PoolConfiguratorFunc = async () => {
     //     asset: tokenAddress.TOKEN_XSD,
     //     symbol: "XSD",
     // })
-    // await PoolConfigurator.initReserves(DhxToken)
+    // await PoolConfigurator.initReserves(GrydToken)
     // await PoolConfigurator.initReserves(ParkToken)
     // await PoolConfigurator.initReserves(RideToken)
     // await PoolConfigurator.initReserves(WMxcToken)
     // await PoolConfigurator.initReserves(XSDToken)
 
     // await AAveOracle.setAssetSources(
-    //     [tokenAddress.TOKEN_DHX],
+    //     [tokenAddress.TOKEN_GRYD],
     //     [contractsAddress.PriceAggregator]
     // )
     // await AAveOracle.setAssetSources(

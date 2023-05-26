@@ -1,6 +1,6 @@
 const { assert, expect } = require("chai")
 const { network, ethers, upgrades } = require("hardhat")
-const { developmentChains } = require("../../helper-hardhat-config")
+const { developmentChains } = require("../../../helper-hardhat-config")
 
 const parseEther = ethers.utils.parseEther
 const formatEther = ethers.utils.formatEther
@@ -9,7 +9,7 @@ const getBalance = ethers.provider.getBalance
 if (!developmentChains.includes(network.name)) {
     describe.skip
 } else {
-    describe("XSDToken Unit Tests", function () {
+    describe("DHXToken Unit Tests", function () {
         let owner, user1, proxy, logicAddr, DHXTokenV2Test
 
         beforeEach(async () => {

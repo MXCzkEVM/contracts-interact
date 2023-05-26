@@ -15,9 +15,10 @@ hh run scripts/aave/index.js --network ganache
 
 test
 hh test test/unit/Faucet.test.js
-hh test test/unit/MXCToken.test.js
 hh test test/unit/GetInitHash.test.js
-hh test test/unit/DHXToken.test.js
+hh test test/unit/token/MXCToken.test.js
+hh test test/unit/token/DHXToken.test.js
+hh test test/unit/token/GRYDToken.test.js
 hh test test/unit/chainlink/MockAggregator.test.js
 
 hh console --network wannsee
