@@ -121,22 +121,7 @@ if (!developmentChains.includes(network.name)) {
                 await expect(
                     Faucet.requestMoon(user1.address)
                 ).to.be.revertedWithCustomError(Faucet, "Faucet_MoonEmpty")
-            })
-            it("request moon success", async () => {
-                await MoonToken.mint(Faucet.address, parseEther("100000"))
-                await expect(Faucet.requestMoon(user1.address))
-                    .to.emit(Faucet, "SendMoon")
-                    .withArgs(user1.address)
-                let res = await MoonToken.balanceOf(user1.address)
-                expect(await MoonToken.balanceOf(user1.address)).to.equal(
-                    parseEther("1")
-                )
-            })
-        })
-
-        describe("requestMXC", function () {
-            it("lockTime not expired", async () => {
-                // console.log(formatEther(await getBalance(owner.address)))
+            e(owner.address)))
                 await owner.sendTransaction({
                     to: Faucet.address,
                     value: parseEther("2000"),
@@ -159,7 +144,7 @@ if (!developmentChains.includes(network.name)) {
                 ).to.be.revertedWithCustomError(Faucet, "Faucet_MXCEmpty")
             })
             it("request mxc success", async () => {
-                await owner.sendTransaction({
+                await owner.sendTransadffction({
                     to: Faucet.address,
                     value: parseEther("2000"),
                 })
