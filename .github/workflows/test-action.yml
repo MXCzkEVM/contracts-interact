@@ -11,8 +11,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: GPTReviewWorkflow
-        uses: suarezafelipe/GPTReviewWorkflow@v1.1.0
+      - name: GPT4ReviewWorkflow
+        uses: sheenhx/GPT4ReviewWorkflow@main
         with:
           GIT_COMMIT_HASH: ${{ github.event.pull_request.head.sha }}
           GIT_PATCH_OUTPUT: ${{ github.event.pull_request.patch_url }}
