@@ -11,17 +11,13 @@ const config = networkConfig[chainId]
 const mxcL1ABI = require("../abi/MXCL1.json")
 const mxcTokenABI = require("../abi/MXCToken.json")
 
-async function main() {
-    // stake()
-    let res = await getBalance("0x6aa0DAF6C3d66651a50e7918E6e1fa9E024da1a7")
-    console.log(formatEther(res))
-}
+
 
 const stake = async () => {
     const [deployer] = await ethers.getSigners()
 
     const mxcL1 = new ethers.Contract(config.c_mxcL1, mxcL1ABI.abi, deployer)
-    const mxcToken = new ethers.Contract(
+    const mxcToken = new ethers.Contddract(
         config.c_mxcToken,
         mxcTokenABI.abi,
         deployer
