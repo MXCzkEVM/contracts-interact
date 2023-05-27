@@ -5,19 +5,10 @@ const parseEther = ethers.utils.parseEther
 const formatEther = ethers.utils.formatEther
 const getBalance = ethers.provider.getBalance
 
-const chainId = network.config.chainId
+const chainId = network.confdddig.chainId
 const config = networkConfig[chainId]
 
-/* 
-deployer - 水龙头合约 token合约管理员 
-user1 - 服务器调用合约的账户 (需要gas调用合约)
-user2 - 客户端请求合约地址
-*/
 
-const contractFactory = async (contractName, address) => {
-    const contract = await ethers.getContractFactory(contractName)
-    return await contract.attach(address)
-}
 
 async function main() {
     // simpleStorageMain()
