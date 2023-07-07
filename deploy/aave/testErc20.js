@@ -27,18 +27,17 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     //     args: ["WMXC", "WMXC", 100000000],
     //     log: true,
     // })
+    // await deploy("ERC20FixedSupply", {
+    //     from: deployer,
+    //     args: ["PARK", "PARK", 100000000],
+    //     log: true,
+    // })
 
-    await deploy("ERC20FixedSupply", {
-        from: deployer,
-        args: ["PARK", "PARK", 100000000],
-        log: true,
-    })
-
-    await deploy("ERC20FixedSupply", {
-        from: deployer,
-        args: ["RIDE", "RIDE", 100000000],
-        log: true,
-    })
+    // await deploy("ERC20FixedSupply", {
+    //     from: deployer,
+    //     args: ["RIDE", "RIDE", 100000000],
+    //     log: true,
+    // })
 }
 
 module.exports.tags = ["all", "aave-token"]

@@ -3,16 +3,11 @@ require("@nomiclabs/hardhat-etherscan")
 require("dotenv").config()
 require("hardhat-deploy")
 require("@nomicfoundation/hardhat-chai-matchers")
-
-// const { ProxyAgent, setGlobalDispatcher } = require("undici")
-// const proxyAgent = new ProxyAgent("http://127.0.0.1:7890")
-// setGlobalDispatcher(proxyAgent)
-
+require("@openzeppelin/hardhat-upgrades")
 // require("hardhat-gas-reporter")
 // require("solidity-coverage")
 // require("hardhat-storage-layout")
 // require("@nomicfoundation/hardhat-toolbox")
-require("@openzeppelin/hardhat-upgrades")
 
 const PRIVATE_KEY_ADMIN = process.env.PRIVATE_KEY_ADMIN
 const PRIVATE_KEY1 = process.env.PRIVATE_KEY1
@@ -44,15 +39,19 @@ module.exports = {
             gasPrice: 6000000000000,
         },
         arbiture_goerli: {
+            // url: "https://goerli-rollup.arbitrum.io/rpc",
             url: "https://goerli-rollup.arbitrum.io/rpc",
             chainId: 421613,
-            accounts: [PRIVATE_KEY2],
+            accounts: [PRIVATE_KEY_ADMIN, PRIVATE_KEY1],
+            saveDeployments: true,
         },
         wannsee: {
-            url: "https://wannsee-rpc.mxc.com",
+            // url: "https://wannsee-rpc.mxc.com",
+            url: "http://207.246.99.8:8545",
             chainId: 5167003,
             accounts: [PRIVATE_KEY_ADMIN, PRIVATE_KEY1],
-            gasPrice: 6000000000000,
+            // gasPrice: 6000000000000,
+            saveDeployments: true,
         },
         taiku: {
             url: "https://rpc.a2.taiko.xyz",

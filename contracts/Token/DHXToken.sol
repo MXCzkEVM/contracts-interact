@@ -17,11 +17,11 @@ contract DHXToken is Initializable, ERC20Upgradeable, UUPSUpgradeable {
     constructor() initializer {}
 
     function initialize(address initialOwner) public initializer {
-        __ERC20_init("DHX", "DataHighway token");
+        __ERC20_init("DataHighway token", "DHX");
         __UUPSUpgradeable_init();
 
         owner = initialOwner;
-        _mint(msg.sender, 100000000 * 10 ** 18);
+        _mint(msg.sender, 1000000000 * 10 ** 18);
     }
 
     function mint(address to, uint256 amount) public onlyOwner {

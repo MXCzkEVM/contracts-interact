@@ -10,7 +10,6 @@ const {
     getTokens,
     contractsAddress,
     getUiPoolDataProviderV3,
-    initContract,
     getAAveOracle,
     getTokenConfig,
     getReservesSetupHelper,
@@ -25,8 +24,6 @@ const BigNumber = ethers.BigNumber
 // const config = networkConfig[chainId]
 
 async function main() {
-    // initContract()
-
     await ReservesSetupHelperFunc()
     // await PoolAddressesProviderFunc()
     // await AclManagerFunc()
@@ -51,8 +48,32 @@ const ReservesSetupHelperFunc = async () => {
     const ReservesSetupHelper = await getReservesSetupHelper()
     await ACLManager.addRiskAdmin(ReservesSetupHelper.address)
     const config = [
+        // {
+        //     asset: tokenAddress.TOKEN_PARK,
+        //     baseLTV: "5000",
+        //     liquidationThreshold: "6500",
+        //     liquidationBonus: "11000",
+        //     reserveFactor: "0",
+        //     borrowCap: "0",
+        //     supplyCap: "0",
+        //     stableBorrowingEnabled: true,
+        //     borrowingEnabled: true,
+        //     flashLoanEnabled: false,
+        // },
+        // {
+        //     asset: tokenAddress.TOKEN_RIDE,
+        //     baseLTV: "5000",
+        //     liquidationThreshold: "6500",
+        //     liquidationBonus: "11000",
+        //     reserveFactor: "0",
+        //     borrowCap: "0",
+        //     supplyCap: "0",
+        //     stableBorrowingEnabled: true,
+        //     borrowingEnabled: true,
+        //     flashLoanEnabled: false,
+        // },
         {
-            asset: tokenAddress.TOKEN_GRYD,
+            asset: tokenAddress.TOKEN_XSD,
             baseLTV: "5000",
             liquidationThreshold: "6500",
             liquidationBonus: "11000",
@@ -75,25 +96,13 @@ const ReservesSetupHelperFunc = async () => {
         //     borrowingEnabled: true,
         //     flashLoanEnabled: false,
         // },
-        // {
-        //     asset: tokenAddress.TOKEN_XSD,
-        //     baseLTV: "5000",
-        //     liquidationThreshold: "6500",
-        //     liquidationBonus: "11000",
-        //     reserveFactor: "0",
-        //     borrowCap: "0",
-        //     supplyCap: "0",
-        //     stableBorrowingEnabled: true,
-        //     borrowingEnabled: true,
-        //     flashLoanEnabled: false,
-        // },
     ]
     await ReservesSetupHelper.configureReserves(
         contractsAddress.POOL_CONFIGURATOR,
-        config,
-        {
-            gasLimit: 5750000,
-        }
+        config
+        // {
+        //     gasLimit: 5750000,
+        // }
     )
     await ACLManager.removeRiskAdmin(ReservesSetupHelper.address)
 }
@@ -185,8 +194,7 @@ const PoolConfiguratorFunc = async () => {
     // PoolConfigurator.setReserveFactor(tokenAddress.TOKEN_DAI, "1000")
 
     // 清除资产
-    // await PoolConfigurator.dropReserve()
-    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_DHX)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_XSD)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_RIDE)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_PARK)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_DAI)
@@ -211,10 +219,6 @@ const PoolConfiguratorFunc = async () => {
     // )
     // console.log(reservesList)
 
-    // const GrydToken = getTokenConfig({
-    //     asset: tokenAddress.TOKEN_GRYD,
-    //     symbol: "GRYD",
-    // })
     // const ParkToken = getTokenConfig({
     //     asset: tokenAddress.TOKEN_PARK,
     //     symbol: "PARK",
@@ -231,23 +235,32 @@ const PoolConfiguratorFunc = async () => {
     //     asset: tokenAddress.TOKEN_XSD,
     //     symbol: "XSD",
     // })
-    // await PoolConfigurator.initReserves(GrydToken)
     // await PoolConfigurator.initReserves(ParkToken)
     // await PoolConfigurator.initReserves(RideToken)
     // await PoolConfigurator.initReserves(WMxcToken)
     // await PoolConfigurator.initReserves(XSDToken)
 
     // await AAveOracle.setAssetSources(
-    //     [tokenAddress.TOKEN_GRYD],
-    //     [contractsAddress.PriceAggregator]
+    //     [
+    //         tokenAddress.TOKEN_RIDE,
+    //         tokenAddress.TOKEN_PARK,
+    //         tokenAddress.XSD,
+    //         tokenAddress.TOKEN_WMXC,
+    //     ],
+    //     [
+    //         contractsAddress.PriceAggregator,
+    //         contractsAddress.PriceAggregator,
+    //         contractsAddress.PriceAggregator,
+    //         contractsAddress.PriceAggregator,
+    //     ]
     // )
     // await AAveOracle.setAssetSources(
     //     [tokenAddress.TOKEN_PARK],
     //     [contractsAddress.PriceAggregator]
     // )
     // await AAveOracle.setAssetSources(
-    //     [tokenAddress.TOKEN_RIDE, tokenAddress.TOKEN_PARK],
-    //     [contractsAddress.PriceAggregator, contractsAddress.PriceAggregator]
+    //     [tokenAddress.TOKEN_RIDE],
+    //     [contractsAddress.PriceAggregator]
     // )
     // await AAveOracle.setAssetSources(
     //     [tokenAddress.TOKEN_WMXC],

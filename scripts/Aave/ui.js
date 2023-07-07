@@ -21,17 +21,24 @@ const UiPoolDataProviderV3Func = async () => {
     //     contractsAddress.POOL_ADDRESS_PROVIDER
     // )
     // console.log(reservesData)
+
     // const reservesList = await UiPoolDataProviderV3.getReservesList(
     //     contractsAddress.POOL_ADDRESS_PROVIDER
     // )
     // console.log(reservesList)
 
-    const lendingPoolAddressProvider = contractsAddress.POOL_ADDRESS_PROVIDER
+    const reservesUser = await UiPoolDataProviderV3.getUserReservesData(
+        contractsAddress.POOL_ADDRESS_PROVIDER,
+        "0x45A83F015D0265800CBC0dACe1c430E724D49cAc"
+    )
+    console.log(reservesUser)
 
-    let [reservesRaw, poolBaseCurrencyRaw] =
-        await UiPoolDataProviderV3.getReservesData(
-            contractsAddress.POOL_ADDRESS_PROVIDER
-        )
+    // const lendingPoolAddressProvider = contractsAddress.POOL_ADDRESS_PROVIDER
+
+    // let [reservesRaw, poolBaseCurrencyRaw] =
+    //     await UiPoolDataProviderV3.getReservesData(
+    //         contractsAddress.POOL_ADDRESS_PROVIDER
+    //     )
 }
 
 main().catch((error) => {
