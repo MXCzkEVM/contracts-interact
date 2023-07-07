@@ -1,9 +1,12 @@
 {
     "name": "web3",
     "version": "1.0.0",
-    "scripts": {},
     "author": "",
     "license": "ISC",
+    "scripts": {
+        "aave": "hh run scripts/aave/index.js --network wannsee",
+        "aave-ui": "hh run scripts/aave/ui.js --network wannsee"
+    },
     "devDependencies": {
         "@nomicfoundation/hardhat-chai-matchers": "^1.0.6",
         "@nomicfoundation/hardhat-network-helpers": "^1.0.8",
@@ -31,6 +34,7 @@
         "undici": "^5.21.0"
     },
     "dependencies": {
+        "@chainlink/contracts": "^0.6.1",
         "@openzeppelin/contracts": "^4.8.1",
         "@openzeppelin/contracts-upgradeable": "^4.8.1",
         "@openzeppelin/hardhat-upgrades": "^1.22.1",
@@ -40,6 +44,7 @@
         "h3-js": "^4.1.0",
         "keccak256": "^1.0.6",
         "merkletreejs": "^0.3.9",
-        "web3": "^1.9.0"
+        "web3": "^1.9.0",
+        "solmate": "^6.7.0"
     }
 }

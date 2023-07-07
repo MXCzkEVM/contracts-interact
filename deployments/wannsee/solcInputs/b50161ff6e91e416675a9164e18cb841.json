@@ -1,0 +1,38 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/aave/mock/MockAggregator.sol": {
+      "content": "// SPDX-License-Identifier: BUSL-1.1\npragma solidity 0.8.17;\n\ncontract MockAggregator {\n    int256 private _latestAnswer;\n\n    event AnswerUpdated(\n        int256 indexed current,\n        uint256 indexed roundId,\n        uint256 updatedAt\n    );\n\n    constructor(int256 initialAnswer) {\n        _latestAnswer = initialAnswer;\n        emit AnswerUpdated(initialAnswer, 0, block.timestamp);\n    }\n\n    function latestAnswer() external view returns (int256) {\n        return _latestAnswer;\n    }\n\n    function getTokenType() external pure returns (uint256) {\n        return 1;\n    }\n\n    function decimals() external pure returns (uint8) {\n        return 8;\n    }\n}\n"
+    },
+    "contracts/mock/SimpleStorage.sol": {
+      "content": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.17;\n\ncontract SimpleStorage {\n    uint256 favoriteNumber;\n\n    event storeNumber(address indexed setter, uint256 number);\n\n    mapping(string => uint256) public nameToFavoriteNumber;\n\n    struct People {\n        uint256 favoriteNumber;\n        string name;\n    }\n\n    People[] public people;\n\n    function store(uint256 _favoriteNumber) public virtual {\n        favoriteNumber = _favoriteNumber;\n        emit storeNumber(msg.sender, _favoriteNumber);\n    }\n\n    function retrieve() public view returns (uint256) {\n        return favoriteNumber;\n    }\n\n    function addPerson(string memory _name, uint256 _favoriteNumber) public {\n        people.push(People(_favoriteNumber, _name));\n        nameToFavoriteNumber[_name] = _favoriteNumber;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

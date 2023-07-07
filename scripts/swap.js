@@ -8,14 +8,26 @@ const getBalance = ethers.provider.getBalance
 const chainId = network.config.chainId
 const config = networkConfig[chainId]
 
+const { getWmxc } = require("../config/address.js")
+
 const contractFactory = async (contractName, address) => {
     const contract = await ethers.getContractFactory(contractName)
     return await contract.attach(address)
 }
 
 async function main() {
-    multCall()
+    // multCall()
+    getWmxcFunc()
 }
+
+const getWmxcFunc = async () => {
+    const [deployer] = await ethers.getSigners()
+    const wmxc = await getWmxc()
+    await wmxc.deposit({ value: parseEther("5000") })
+    let bal = await wmxc.balanceOf(deployer.address)
+    console.log(formatEther(bal))
+}
+
 const multCall = async () => {
     const [deployer, user1, user2] = await ethers.getSigners()
     let multCall = await contractFactory("Multicall", config.c_multCall)
