@@ -9,7 +9,7 @@ require("@openzeppelin/hardhat-upgrades")
 // require("hardhat-storage-layout")
 // require("@nomicfoundation/hardhat-toolbox")
 
-const PRIVATE_KEY_ADMIN = process.env.PRIVATE_KEY_ADMIN
+const PRIVATE_KEY0 = process.env.PRIVATE_KEY0
 const PRIVATE_KEY1 = process.env.PRIVATE_KEY1
 const PRIVATE_KEY2 = process.env.PRIVATE_KEY2
 const PRIVATE_KEY3 = process.env.PRIVATE_KEY3
@@ -37,20 +37,28 @@ module.exports = {
         hardhat: {
             chainId: 31337,
             gasPrice: 6000000000000,
+            live: true,
+            saveDeployments: true,
         },
         arbiture_goerli: {
             // url: "https://goerli-rollup.arbitrum.io/rpc",
             url: "https://goerli-rollup.arbitrum.io/rpc",
             chainId: 421613,
-            accounts: [PRIVATE_KEY_ADMIN, PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY0, PRIVATE_KEY1],
             saveDeployments: true,
         },
         wannsee: {
             // url: "https://wannsee-rpc.mxc.com",
             url: "http://207.246.99.8:8545",
             chainId: 5167003,
-            accounts: [PRIVATE_KEY_ADMIN, PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY0, PRIVATE_KEY1],
             // gasPrice: 6000000000000,
+            saveDeployments: true,
+        },
+        wannseeMainnet: {
+            url: "http://207.246.99.8:8545",
+            chainId: 5167003,
+            accounts: [PRIVATE_KEY0, PRIVATE_KEY1],
             saveDeployments: true,
         },
         taiku: {

@@ -5,7 +5,7 @@ import "@openzeppelin/contracts-upgradeable/token/ERC20/ERC20Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
-contract GRYDToken is Initializable, ERC20Upgradeable, UUPSUpgradeable {
+contract DIGIToken is Initializable, ERC20Upgradeable, UUPSUpgradeable {
     address public owner;
 
     modifier onlyOwner() {
@@ -17,7 +17,7 @@ contract GRYDToken is Initializable, ERC20Upgradeable, UUPSUpgradeable {
     constructor() initializer {}
 
     function initialize(address initialOwner) public initializer {
-        __ERC20_init("GRYD Token", "GRYD");
+        __ERC20_init("DIGI Token", "DG");
         __UUPSUpgradeable_init();
 
         owner = initialOwner;

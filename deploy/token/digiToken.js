@@ -9,16 +9,12 @@ require("dotenv").config()
 module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deployer } = await getNamedAccounts()
 
-    const GRYDTokenContract = await ethers.getContractFactory("GRYDToken")
-    const GRYDToken = await upgrades.deployProxy(
-        GRYDTokenContract,
-        [deployer],
-        {
-            initializer: "initialize",
-            kind: "uups",
-        }
-    )
-    console.log(GRYDToken.address)
+    const TokenContract = await ethers.getContractFactory("DIGIToken")
+    const Token = await upgrades.deployProxy(TokenContract, [deployer], {
+        initializer: "initialize",
+        kind: "uups",
+    })
+    console.log(Token.address)
 }
 
 module.exports.tags = ["all", "grydToken"]
