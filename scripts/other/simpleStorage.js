@@ -1,5 +1,6 @@
 const { ethers, getNamedAccounts, deployments, network } = require("hardhat")
 const { networkConfig } = require("../../helper-hardhat-config.js")
+const { getSimpleStorage } = require("./address.js")
 
 const parseEther = ethers.utils.parseEther
 const formatEther = ethers.utils.formatEther
@@ -7,16 +8,13 @@ const getBalance = ethers.provider.getBalance
 const BigNumber = ethers.BigNumber
 
 async function main() {
-    await wmxcFunc()
-}
-
-const wmxcFunc = async () => {
     const [deployer] = await ethers.getSigners()
-    const wmxc = await getWmxc()
+    const simpleStoage = await getSimpleStorage()
     // await wmxc.deposit({ value: parseEther("1000") })
 
-    let bal = await wmxc.balanceOf(deployer.address)
-    console.log(formatEther(bal))
+    // let res = await simpleStoage.retrieve()
+    let res = await simpleStoage.store(20)
+    console.log(res)
 }
 
 main().catch((error) => {

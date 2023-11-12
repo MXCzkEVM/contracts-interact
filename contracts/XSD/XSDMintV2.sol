@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.17;
 
-import "solmate/src/tokens/ERC20.sol";
+import "./ERC20Upgrade.sol";
 import "solmate/src/tokens/ERC721.sol";
-import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 
 interface IUniswapV2Factory {
     function getPair(
@@ -48,22 +49,27 @@ error XSDMint__NFTNotExist();
 error XSDMint__XSDNotEnough();
 error XSDMint__AssetNotRequiement();
 
-contract XSDMint is ERC20, IERC721Receiver {
+contract XSDMintV2 is
+    Initializable,
+    ERC20Upgrade,
+    UUPSUpgradeable,
+    IERC721Receiver
+{
     address public s_admin;
     address public s_swapFactory;
     address public s_weth;
     uint128 public s_priceUnit;
     uint128 public s_nftMinimum;
-    uint256[2] public rate = [8, 2];
+    uint256[2] public rate;
     mapping(ERC721 => bool) public s_acceptNft;
-    mapping(ERC20 => bool) public s_acceptToken;
+    mapping(ERC20Upgrade => bool) public s_acceptToken;
 
     struct NFTTokens {
         ERC721 collection;
         uint256 token_id;
     }
     struct ERC20Tokens {
-        ERC20 token;
+        ERC20Upgrade token;
         uint256 amount;
     }
 
@@ -72,32 +78,39 @@ contract XSDMint is ERC20, IERC721Receiver {
         _;
     }
 
-    constructor(
-        address _factoryAddress,
-        address _weth
-    ) ERC20("XSD Token", "XSD", 18) {
+    function initialize(address _factory, address _weth) public initializer {
+        initializeERC20("XSD token", "XSD", 18);
+        __UUPSUpgradeable_init();
+
         s_admin = msg.sender;
-        s_swapFactory = _factoryAddress;
+        rate = [8, 2];
+        s_swapFactory = _factory;
         s_weth = _weth;
-        s_priceUnit = 6;
+        s_priceUnit = 8;
         s_nftMinimum = 3;
     }
 
-    function setCollateralRate(uint256[2] calldata _rate) external onlyOwner {
-        rate = _rate;
-    }
-
-    function setFactory(address _factoryAddress) external onlyOwner {
-        s_swapFactory = _factoryAddress;
-    }
-
-    function setWMXC(address _wethAddress) external onlyOwner {
+    function setAddress(
+        address _factory,
+        address _wethAddress
+    ) external onlyOwner {
+        s_swapFactory = _factory;
         s_weth = _wethAddress;
+    }
+
+    function setConfig(
+        uint256[2] calldata _rate,
+        uint128 _pirceUnit,
+        uint128 _nftMinimum
+    ) external onlyOwner {
+        rate = _rate;
+        s_priceUnit = uint128(_pirceUnit);
+        s_nftMinimum = _nftMinimum;
     }
 
     function setCollateral(
         ERC721[] calldata nftAddr,
-        ERC20[] calldata erc20Addr,
+        ERC20Upgrade[] calldata erc20Addr,
         bool addOrRemove
     ) public onlyOwner {
         uint256 nft_length = nftAddr.length;
@@ -178,7 +191,7 @@ contract XSDMint is ERC20, IERC721Receiver {
         uint256 erc20_length = erc20Tokens.length;
 
         for (uint256 i; i < erc20_length; ) {
-            ERC20 token = erc20Tokens[i].token;
+            ERC20Upgrade token = erc20Tokens[i].token;
             uint256 amount = erc20Tokens[i].amount;
 
             if (!s_acceptToken[token]) {
@@ -245,10 +258,10 @@ contract XSDMint is ERC20, IERC721Receiver {
 
         uint256 erc20_length = erc20Tokens.length;
         for (uint256 i; i < erc20_length; ) {
-            ERC20 token = erc20Tokens[i].token;
+            ERC20Upgrade token = erc20Tokens[i].token;
             uint256 amount = erc20Tokens[i].amount;
 
-            if (ERC20(token).balanceOf(msg.sender) < amount) {
+            if (ERC20Upgrade(token).balanceOf(msg.sender) < amount) {
                 revert XSDMint__TokenOverAmount();
             }
             token.transferFrom(msg.sender, address(this), amount);
@@ -300,10 +313,10 @@ contract XSDMint is ERC20, IERC721Receiver {
 
         uint256 erc20_length = erc20Tokens.length;
         for (uint256 i; i < erc20_length; ) {
-            ERC20 token = erc20Tokens[i].token;
+            ERC20Upgrade token = erc20Tokens[i].token;
             uint256 amount = erc20Tokens[i].amount;
 
-            if (ERC20(token).balanceOf(address(this)) < amount) {
+            if (ERC20Upgrade(token).balanceOf(address(this)) < amount) {
                 revert XSDMint__TokenExhausted();
             }
             token.transfer(msg.sender, amount);
@@ -327,12 +340,14 @@ contract XSDMint is ERC20, IERC721Receiver {
         return deviation <= expectedTokenv / 100;
     }
 
+    function _authorizeUpgrade(
+        address newImplementation
+    ) internal virtual override {}
+
     function onERC721Received(
-        address /*operator*/,
-        address /*from*/,
-        uint /*tokenId*/,
-        bytes calldata /*data*/
-    ) external pure override returns (bytes4) {
-        return IERC721Receiver.onERC721Received.selector;
-    }
+        address operator,
+        address from,
+        uint256 tokenId,
+        bytes calldata data
+    ) external override returns (bytes4) {}
 }

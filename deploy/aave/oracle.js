@@ -11,19 +11,25 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy } = deployments
     const { deployer } = await getNamedAccounts()
 
-    const INITIAL = "2000"
-    const NORMOL_INITAL = "50"
+    // const NORMOL_INITAL = "50"
 
     // eth/usd
-    await deploy(`ETHUSDMockAggregator`, {
-        args: [parseEther(INITIAL).div(10 ** 8)],
-        from: deployer,
-        contract: "MockAggregator",
-        log: true,
-    })
+    // await deploy(`MXCUSDMockAggregator`, {
+    //     args: [parseEther("0.01").div(10 ** 10)],
+    //     from: deployer,
+    //     contract: "MockAggregator",
+    //     log: true,
+    // })
 
-    await deploy(`TestErc20PriceAggregator`, {
-        args: [parseEther(NORMOL_INITAL).div(10 ** 8)],
+    // await deploy(`TestErc20PriceAggregator`, {
+    //     args: [parseEther(NORMOL_INITAL).div(10 ** 8)],
+    //     from: deployer,
+    //     contract: "MockAggregator",
+    //     log: true,
+    // })
+
+    await deploy(`DigiPriceAggregator`, {
+        args: [parseEther("1").div(10 ** 10)],
         from: deployer,
         contract: "MockAggregator",
         log: true,

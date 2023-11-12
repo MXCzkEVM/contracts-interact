@@ -17,4 +17,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     console.log(Token.address)
 }
 
-module.exports.tags = ["all", "grydToken"]
+module.exports.tags = ["all", "digiToken"]

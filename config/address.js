@@ -5,8 +5,6 @@ const MXCL1_A2Abi = require("../abi/bridge/MXCL1-A2.json")
 const MXCL1_A3Abi = require("../abi/bridge/MXCL1-A3.json")
 const MXCTokenAbi = require("../abi/bridge/MXCToken.json")
 const WMXC_ABI = require("../abi/swap/WMXC.json")
-const ABI_MEP1002 = require("../abi/MEP1002Token.json")
-const ABI_MEP1004 = require("../abi/MEP1004Token.json")
 
 const contracts = {
     // arb-goerli
@@ -19,8 +17,6 @@ const contracts = {
     // wannsee
     5167003: {
         WMXC: "0x6807F4B0D75c59Ef89f0dbEF9841Fb23fFDF105D",
-        MEP1002: "0xFf3159E5779C61f5d2965305DC1b9E8a1E16a39c",
-        MEP1004: "0x5CE293229a794AF03Ec3c95Cfba6b1058D558026",
     },
     // ganache
     1337: {},
@@ -34,6 +30,7 @@ const tokens = {
     5167003: {
         DHXToken: "0x8bC7cf83f5F83781Ec85B78d866222987Ae24657",
     },
+    16868: {},
 }
 
 const getDeployment = async (contract) => {
@@ -45,24 +42,6 @@ const getDeployment = async (contract) => {
 const contractAttach = async (contractName, address) => {
     const contract = await ethers.getContractFactory(contractName)
     return await contract.attach(address)
-}
-
-const getMep1002 = async () => {
-    const [deployer] = await ethers.getSigners()
-    return new ethers.Contract(
-        contracts[chainId].MEP1002,
-        ABI_MEP1002,
-        deployer
-    )
-}
-
-const getMep1004 = async () => {
-    const [deployer] = await ethers.getSigners()
-    return new ethers.Contract(
-        contracts[chainId].MEP1004,
-        ABI_MEP1004,
-        deployer
-    )
 }
 
 const getDHXToken = async () => {
@@ -126,10 +105,10 @@ module.exports = {
     getDeployment,
     contracts: contracts[chainId],
     tokens: tokens[chainId],
-    getMep1002,
-    getMep1004,
+
     getWmxc,
     getTokenVault,
+
     getMXCL1_A2,
     getMXCL1_A3,
     geMoonToken,

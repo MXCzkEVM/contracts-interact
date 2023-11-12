@@ -1,9 +1,9 @@
 const { ethers } = require("hardhat")
 
 const getBlockTime = async () => {
-    let blockNumBefore = await ethers.provider.getBlockNumber()
-    let blockBefore = await ethers.provider.getBlock(blockNumBefore)
-    return blockBefore.timestamp
+    let blockNum = await ethers.provider.getBlockNumber()
+    let block = await ethers.provider.getBlock(blockNum)
+    return block.timestamp
 }
 
 const increaseTime = async (increaseTime) => {

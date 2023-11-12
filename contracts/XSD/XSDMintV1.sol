@@ -56,7 +56,7 @@ contract XSDMintV1 is
     ) internal override onlyOwner {}
 
     function initialize(address initialOwner) public initializer {
-        __ERC20_init("XSD", "XSD");
+        __ERC20_init("XSD Token", "XSD");
         __UUPSUpgradeable_init();
 
         owner = initialOwner;

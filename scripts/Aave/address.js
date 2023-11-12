@@ -45,6 +45,19 @@ const tokens = {
         TOKEN_PARK: "0x0f8716ba51A0f837f5351843B4351699e9f255DE",
         TOKEN_RIDE: "0x5348de84B4906D7d190bAfC9865DbF00963e8292",
     },
+    18686: {
+        TOKEN_DAI: "0x08fB320fE06bbf5801e6e927a110A292FB4cBF11",
+        TOKEN_LINK: "0x00819304434284CC3825779fd5EF4F6A1204141B",
+        TOKEN_WETH: "0xB20FEffA2587190CEFFf673f6581A7Ee22572327",
+        TOKEN_USDC: "0x23A6767Bb13e77cb9ABaA9E3C2804448390351F5",
+        TOKEN_WBTC: "0x55eB81fA948b4FEB921c0a574b8BCDE25fe93E53",
+        TOKEN_USDT: "0xd1Dc0B1C1Aa37C359fF79A4E3Aab44A28e84C097",
+        TOKEN_AAVE: "0xFDFBDE7d4aC878C76741be2269f624F3Aaa63788",
+        TOKEN_EURS: "0x898BC1aD170DA80Cd138D16785aED8a07eDd5f83",
+
+        TOKEN_WMXC: "0xcBCE60BAD702026d6385E5f449e44099A655d14f",
+        TOKEN_DIGI: "0x77E5a8bE0bb40212458A18dEC1A9752B04Cb6EA1",
+    },
 }
 
 const getTokens = (chainId) => {
@@ -96,6 +109,31 @@ const contracts = {
 
         ChainLinkEthUsd: "0xd95d27B3762726aCE11419dA6ecA0e2A948e6BdD",
         PriceAggregator: "0x94eE52C0583FA3802bCAd74BF300d3cE10FF1D7e",
+    },
+    18686: {
+        POOL_DATA_PROVIDER: "0x52F72a3C94A6fFCA3f8CAF769E14015FD040B0cD",
+        POOL_ADDRESS_PROVIDER: "0xa5688Ccf9f8828fe930c6D1d4ba3C90c554a1557",
+        ACL_MANAGER: "0xcc088472E213e010ed8e455C56449e5c9Be4e2b7",
+        POOL_CONFIGURATOR: "0x6c2A55358C960df7B597aC7E31FbB134164cD962",
+        POOL: "0x4c1C4e13438d9442e9198a88a4c8171fB7E7aE55",
+        WrappedTokenGatewayV3: "0xaAd348C26330fD49B53b44C212217c2dABe35F21",
+        UiIncentiveDataProviderV3: "0xB0aAaBd4d51d1d2df0EAcdD9E343914730F35D9E",
+        UiPoolDataProviderV3: "0xBB155e3574C5493C713C322716947c963Fc6C405",
+        WalletBalanceProvider: "0x71208fE00e4f08cD606d1013Bd7c5B63deB42293",
+        AToken: "0x29c7FD88c3b8133203521477B328FfCcc398768b",
+        StableDebtToken: "0xB2F311728626110052cc514bd2179a1eEe437E41",
+        VariableDebtToken: "0xF5A559287D3120A9964aa8695ABFA68cCA62F030",
+        TreasuryProxy: "0x8e64Fd4D6C54D2f8a6A3Ad1e1469EBCC7F588108",
+        rateStrategyStableOne: "0x71DC8e3C7E4b6eCdA54746D6Bf98F1Dd91d14497",
+        rateStrategyStableTwo: "0x149b66cF9Fb2f4E17A2f14336b96471d4BEc23c0",
+        rateStrategyVolatileOne: "0xf25C7B2b6c49B28dE969FE4AF76a379CF4D22cc6",
+        IncentivesProxy: "0xA960b3E6E6eB2F548FfE1c3b6EF5B1966b1D1355",
+        AaveOracle: "0x4E94f9F6d1f7f311db51599Aa5c006d3F6691982",
+        ReservesSetupHelper: "0x8322c12342c711Dd242eA629f471a9B3C5785769",
+        Faucet: "0x5163A33C30577d788eC59D07D46ec72f636d0C12",
+
+        ChainLinkEthUsd: "0xEDE91d7c31456A6eFBD391267C9EEb30E053572b",
+        DigiPriceAggregator: "0x40Cf3B1977c50620aAA0683B4758521303F2a687",
     },
     // ganache
     1337: {
@@ -209,14 +247,33 @@ const getTokenConfig = ({ asset, symbol, dec = 18, rateType = 2 }) => {
         2: c.rateStrategyVolatileOne,
     }
     return [
+        // {
+        //     underlyingAsset: asset,
+        //     underlyingAssetName: symbol,
+        //     aTokenName: `MXC Wannsee ${symbol}`,
+        //     aTokenSymbol: `aMxc${symbol}`,
+        //     variableDebtTokenName: `Wannsee Mxc Variable Debt ${symbol}`,
+        //     variableDebtTokenSymbol: `variableDebtMxc${symbol}`,
+        //     stableDebtTokenName: `Wannsee Mxc Stable Debt ${symbol}`,
+        //     stableDebtTokenSymbol: `stableDebtMxc${symbol}`,
+        //     underlyingAssetDecimals: dec,
+        //     aTokenImpl: c.AToken,
+        //     stableDebtTokenImpl: c.StableDebtToken,
+        //     variableDebtTokenImpl: c.VariableDebtToken,
+        //     interestRateStrategyAddress: rateMap[rateType],
+        //     treasury: c.TreasuryProxy,
+        //     incentivesController: c.IncentivesProxy,
+        //     params: "0x10",
+        // },
+
         {
             underlyingAsset: asset,
             underlyingAssetName: symbol,
-            aTokenName: `MXC Wannsee ${symbol}`,
+            aTokenName: `MXC ${symbol}`,
             aTokenSymbol: `aMxc${symbol}`,
-            variableDebtTokenName: `Wannsee Mxc Variable Debt ${symbol}`,
+            variableDebtTokenName: `Mxc Variable Debt ${symbol}`,
             variableDebtTokenSymbol: `variableDebtMxc${symbol}`,
-            stableDebtTokenName: `Wannsee Mxc Stable Debt ${symbol}`,
+            stableDebtTokenName: `Mxc Stable Debt ${symbol}`,
             stableDebtTokenSymbol: `stableDebtMxc${symbol}`,
             underlyingAssetDecimals: dec,
             aTokenImpl: c.AToken,

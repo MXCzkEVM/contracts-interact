@@ -35,7 +35,7 @@ contract XSDMintV0 is ERC20, Ownable, IERC721Receiver {
         uint256 amount;
     }
 
-    constructor(uint256 price_mxcxsd) ERC20("XSD", "XSD", 18) {
+    constructor(uint256 price_mxcxsd) ERC20("XSD Token", "XSD", 18) {
         mxcxsd = price_mxcxsd;
     }
 

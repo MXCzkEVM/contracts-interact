@@ -9,8 +9,9 @@ require("@openzeppelin/hardhat-upgrades")
 // require("hardhat-storage-layout")
 // require("@nomicfoundation/hardhat-toolbox")
 
-const PRIVATE_KEY0 = process.env.PRIVATE_KEY0
-const PRIVATE_KEY1 = process.env.PRIVATE_KEY1
+const PRIVATE_KEY_MXCADMIN1 = process.env.PRIVATE_KEY_MXCADMIN1
+const PRIVATE_KEY_DOUGHNUT = process.env.PRIVATE_KEY_DOUGHNUT
+const PRIVATE_KEY_MUFFIN = process.env.PRIVATE_KEY_MUFFIN
 const PRIVATE_KEY2 = process.env.PRIVATE_KEY2
 const PRIVATE_KEY3 = process.env.PRIVATE_KEY3
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
@@ -44,32 +45,38 @@ module.exports = {
             // url: "https://goerli-rollup.arbitrum.io/rpc",
             url: "https://goerli-rollup.arbitrum.io/rpc",
             chainId: 421613,
-            accounts: [PRIVATE_KEY0, PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY_MXCADMIN1, PRIVATE_KEY_DOUGHNUT],
             saveDeployments: true,
         },
         wannsee: {
             // url: "https://wannsee-rpc.mxc.com",
             url: "http://207.246.99.8:8545",
             chainId: 5167003,
-            accounts: [PRIVATE_KEY0, PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY_DOUGHNUT, PRIVATE_KEY_MXCADMIN1],
             // gasPrice: 6000000000000,
+            allowUnlimitedContractSize: true,
             saveDeployments: true,
         },
-        wannseeMainnet: {
-            url: "http://207.246.99.8:8545",
-            chainId: 5167003,
-            accounts: [PRIVATE_KEY0, PRIVATE_KEY1],
+        wannsee_mainnet: {
+            // url: "https://rpc.mxc.com",
+            url: "http://207.246.101.30:8545",
+            chainId: 18686,
+            accounts: [PRIVATE_KEY_DOUGHNUT, PRIVATE_KEY_MUFFIN],
             saveDeployments: true,
+            allowUnlimitedContractSize: true,
+            // gwei
+            gasPrice: 600 * 10000 * 1000000000,
+            // gasLimit: 30000000,
         },
         taiku: {
             url: "https://rpc.a2.taiko.xyz",
             chainId: 167004,
-            accounts: [PRIVATE_KEY1, PRIVATE_KEY2, PRIVATE_KEY3],
+            accounts: [PRIVATE_KEY_DOUGHNUT, PRIVATE_KEY2, PRIVATE_KEY3],
             gasPrice: 250000000000,
         },
         sepolia: {
             url: SEPOLIA_RPC_URL,
-            accounts: [PRIVATE_KEY1],
+            accounts: [PRIVATE_KEY_DOUGHNUT],
             chainId: 11155111,
             blockConfirmations: 6,
         },

@@ -1,11 +1,11 @@
 const { ethers, getNamedAccounts, deployments, network } = require("hardhat")
-const { networkConfig } = require("../helper-hardhat-config.js")
+const { networkConfig } = require("../../helper-hardhat-config.js")
 
 const parseEther = ethers.utils.parseEther
 const formatEther = ethers.utils.formatEther
 const getBalance = ethers.provider.getBalance
 
-const { getDHXToken } = require("../config/address.js")
+const { getDHXToken } = require("../../config/address.js")
 
 async function main() {
     const { deployer } = await getNamedAccounts()

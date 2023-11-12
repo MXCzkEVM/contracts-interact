@@ -21,7 +21,7 @@ contract DIGIToken is Initializable, ERC20Upgradeable, UUPSUpgradeable {
         __UUPSUpgradeable_init();
 
         owner = initialOwner;
-        _mint(msg.sender, 100000000 * 10 ** 18);
+        _mint(msg.sender, 10000000000 * 10 ** 18);
     }
 
     function mint(address to, uint256 amount) public onlyOwner {
@@ -31,4 +31,36 @@ contract DIGIToken is Initializable, ERC20Upgradeable, UUPSUpgradeable {
     function _authorizeUpgrade(
         address newImplementation
     ) internal override onlyOwner {}
+}
+
+contract DIGITokenV2 is Initializable, ERC20Upgradeable, UUPSUpgradeable {
+    address public owner;
+
+    modifier onlyOwner() {
+        require(owner == _msgSender(), "Not authorized");
+        _;
+    }
+
+    /// @custom:oz-upgrades-unsafe-allow constructor
+    constructor() initializer {}
+
+    function initialize(address initialOwner) public initializer {
+        __ERC20_init("DIGI Token", "DG");
+        __UUPSUpgradeable_init();
+
+        owner = initialOwner;
+        _mint(msg.sender, 10000000000 * 10 ** 18);
+    }
+
+    function _authorizeUpgrade(
+        address newImplementation
+    ) internal override onlyOwner {}
+
+    function transferAdminship(address newAdmin) external onlyOwner {
+        owner = newAdmin;
+    }
+
+    function mint(address to, uint256 amount) public onlyOwner {
+        _mint(to, amount);
+    }
 }

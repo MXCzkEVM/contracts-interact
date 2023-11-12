@@ -30,7 +30,6 @@ async function main() {
     // await PoolConfiguratorFunc()
     // await PoolFunc()
     // await PoolDataProviderFunc()
-
     // await MintToken()
 }
 
@@ -80,7 +79,7 @@ const ReservesSetupHelperFunc = async () => {
             reserveFactor: "0",
             borrowCap: "0",
             supplyCap: "0",
-            stableBorrowingEnabled: true,
+            stableBorrowingEnabled: false,
             borrowingEnabled: true,
             flashLoanEnabled: false,
         },
@@ -96,13 +95,22 @@ const ReservesSetupHelperFunc = async () => {
         //     borrowingEnabled: true,
         //     flashLoanEnabled: false,
         // },
+        // {
+        //     asset: tokenAddress.TOKEN_DIGI,
+        //     baseLTV: "5000",
+        //     liquidationThreshold: "6500",
+        //     liquidationBonus: "11000",
+        //     reserveFactor: "0",
+        //     borrowCap: "0",
+        //     supplyCap: "0",
+        //     stableBorrowingEnabled: true,
+        //     borrowingEnabled: true,
+        //     flashLoanEnabled: false,
+        // },
     ]
     await ReservesSetupHelper.configureReserves(
         contractsAddress.POOL_CONFIGURATOR,
         config
-        // {
-        //     gasLimit: 5750000,
-        // }
     )
     await ACLManager.removeRiskAdmin(ReservesSetupHelper.address)
 }
@@ -205,6 +213,7 @@ const PoolConfiguratorFunc = async () => {
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_AAVE)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_LINK)
     // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_WETH)
+    // await PoolConfigurator.dropReserve(tokenAddress.TOKEN_DIGI)
 
     // 冻结/解冻
     // await PoolConfigurator.setReserveFreeze(tokenAddress.TOKEN_DAI, true)
@@ -235,10 +244,18 @@ const PoolConfiguratorFunc = async () => {
     //     asset: tokenAddress.TOKEN_XSD,
     //     symbol: "XSD",
     // })
+
+    const DIGIToken = getTokenConfig({
+        asset: tokenAddress.TOKEN_DIGI,
+        symbol: "DG",
+    })
+    // console.log(DIGIToken)
+
     // await PoolConfigurator.initReserves(ParkToken)
     // await PoolConfigurator.initReserves(RideToken)
     // await PoolConfigurator.initReserves(WMxcToken)
     // await PoolConfigurator.initReserves(XSDToken)
+    // await PoolConfigurator.initReserves(DIGIToken)
 
     // await AAveOracle.setAssetSources(
     //     [
@@ -269,6 +286,11 @@ const PoolConfiguratorFunc = async () => {
     // await AAveOracle.setAssetSources(
     //     [tokenAddress.TOKEN_XSD],
     //     [contractsAddress.PriceAggregator]
+    // )
+
+    // await AAveOracle.setAssetSources(
+    //     [tokenAddress.TOKEN_DIGI],
+    //     [contractsAddress.DigiPriceAggregator]
     // )
 }
 
